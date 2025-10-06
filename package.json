@@ -1,0 +1,19 @@
+{
+  "name": "game-hunt",
+  "version": "1.0.0",
+  "description": "Telegram bot for game giveaways monitoring",
+  "type": "module",
+  "scripts": {
+    "start": "node api/check-giveaways.js",
+    "dev": "node local-test.js",
+    "cron": "node local-cron.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^17.2.3",
+    "node-cron": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

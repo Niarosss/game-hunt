@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/check-giveaways.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/check-giveaways",
+      "dest": "/api/check-giveaways.js"
+    }
+  ],
+  "functions": {
+    "api/check-giveaways.js": {
+      "maxDuration": 60
+    }
+  },
+  "crons": [
+    {
+      "path": "/check-giveaways",
+      "schedule": "0 9,21 * * *"
+    }
+  ]
+}
