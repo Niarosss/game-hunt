@@ -12,11 +12,6 @@
       "dest": "/api/check-giveaways.js"
     }
   ],
-  "functions": {
-    "api/check-giveaways.js": {
-      "maxDuration": 60
-    }
-  },
   "crons": [
     {
       "path": "/check-giveaways",
