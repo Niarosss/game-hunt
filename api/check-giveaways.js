@@ -1,9 +1,9 @@
 import { EpicGames } from "../lib/epic-games.js";
 import { Steam } from "../lib/steam.js";
 import { TelegramBot } from "../lib/telegram.js";
-import { SimpleStorage } from "../lib/simple-storage.js";
+import { Storage } from "../lib/storage.js";
 
-// Функції форматування ВИНЕСЕНІ ЗОВНІ
+// Функція форматування для нових ігор
 function formatNewGamesMessage(games, platform, title) {
   let message = `${title}\n`;
   message += `🎮 <b>${platform}</b>\n\n`;
@@ -11,7 +11,7 @@ function formatNewGamesMessage(games, platform, title) {
   games.forEach((game) => {
     const priceInfo = game.hasMeaningfulPrice
       ? `💵 <s>${game.originalPrice}</s> <b>БЕЗКОШТОВНО</b>\n`
-      : "🎁 <b>БЕЗКОШТОВНА РОЗДАЧА</b>\n";
+      : "🎁 <b>БЕЗКОШТОВНО</b>\n";
 
     const endDate = game.endDate
       ? `⏰ До: <b>${game.endDate.toLocaleDateString("uk-UA")}</b>\n`
@@ -26,74 +26,6 @@ function formatNewGamesMessage(games, platform, title) {
   return message;
 }
 
-function formatGiveawayMessage(epicGames, steamGames) {
-  const currentDate = new Date().toLocaleDateString("uk-UA", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
-  let message = `🎮 <b>БЕЗКОШТОВНІ РОЗДАЧІ ІГОР</b>\n`;
-  message += `📅 <i>${currentDate}</i>\n\n`;
-
-  // EPIC GAMES
-  const epicActive = epicGames.filter((game) => game.isActive);
-  const epicUpcoming = epicGames.filter(
-    (game) => !game.isActive && game.startDate
-  );
-
-  if (epicActive.length > 0) {
-    message += `🎯 <b>EPIC GAMES</b>\n\n`;
-    epicActive.forEach((game) => {
-      const priceInfo = game.hasMeaningfulPrice
-        ? `💵 <s>${game.originalPrice}</s> <b>БЕЗКОШТОВНО</b>\n`
-        : "🎁 <b>БЕЗКОШТОВНО</b>\n";
-
-      const endDate = game.endDate
-        ? `⏰ До: <b>${game.endDate.toLocaleDateString("uk-UA")}</b>\n`
-        : "";
-
-      message += `🎮 <b>${game.title}</b>\n`;
-      message += priceInfo;
-      message += endDate;
-      message += `🔗 <a href="${game.url}">Отримати гру</a>\n\n`;
-    });
-  }
-
-  // STEAM
-  if (steamGames.length > 0) {
-    if (epicActive.length > 0) message += `───────────────\n\n`;
-
-    message += `⚡ <b>STEAM</b>\n\n`;
-    steamGames.forEach((game) => {
-      const priceInfo = game.originalPrice
-        ? `💵 <s>${game.originalPrice}</s> <b>БЕЗКОШТОВНО</b>\n`
-        : `🎁 <b>БЕЗКОШТОВНО</b>\n`;
-
-      message += `🎮 <b>${game.title}</b>\n`;
-      message += priceInfo;
-      message += `🔗 <a href="${game.url}">Отримати гру</a>\n\n`;
-    });
-  }
-
-  // МАЙБУТНІ РОЗДАЧІ (Epic Games)
-  if (epicUpcoming.length > 0) {
-    message += `───────────────\n\n`;
-    message += `📅 <b>МАЙБУТНІ РОЗДАЧІ EPIC GAMES:</b>\n\n`;
-
-    epicUpcoming.sort((a, b) => a.startDate - b.startDate);
-    epicUpcoming.forEach((game) => {
-      message += `🕒 <b>${game.title}</b>\n`;
-      message += `📆 ${game.startDate.toLocaleDateString("uk-UA")}\n\n`;
-    });
-  }
-
-  message += `🔔 <i>Слідкуйте за оновленнями щодня!</i>`;
-
-  return message;
-}
-
 export default async function handler(req, res) {
   try {
     console.log("🔄 Перевіряю нові роздачі...");
@@ -101,7 +33,7 @@ export default async function handler(req, res) {
     // Ініціалізація
     const epic = new EpicGames();
     const steam = new Steam();
-    const storage = new SimpleStorage();
+    const storage = new Storage();
     const telegram = new TelegramBot(
       process.env.TELEGRAM_BOT_TOKEN,
       process.env.TELEGRAM_CHAT_ID
@@ -134,6 +66,8 @@ export default async function handler(req, res) {
     console.log("\n📊 ЗМІНИ:");
     console.log(`🆕 Нові Epic Games: ${changes.newEpic.length}`);
     console.log(`🆕 Нові Steam: ${changes.newSteam.length}`);
+    console.log(`🔚 Завершилися Epic: ${changes.endedEpic.length}`);
+    console.log(`🔚 Завершилися Steam: ${changes.endedSteam.length}`);
 
     let messagesSent = 0;
 
@@ -177,23 +111,6 @@ export default async function handler(req, res) {
       }
     }
 
-    // Якщо немає нових ігор, але є поточні - відправляємо загальне повідомлення
-    if (
-      messagesSent === 0 &&
-      (currentEpicGames.length > 0 || currentSteamGames.length > 0)
-    ) {
-      console.log("📤 Надсилаю загальне повідомлення про поточні роздачі...");
-      const message = formatGiveawayMessage(
-        currentEpicGames,
-        currentSteamGames
-      );
-      const success = await telegram.sendMessage(message);
-      if (success) {
-        messagesSent++;
-        console.log("✅ Загальне повідомлення відправлено");
-      }
-    }
-
     if (messagesSent === 0) {
       console.log("ℹ️ Нових роздач не знайдено");
     }
@@ -205,6 +122,8 @@ export default async function handler(req, res) {
       changes: {
         newEpic: changes.newEpic.length,
         newSteam: changes.newSteam.length,
+        endedEpic: changes.endedEpic.length,
+        endedSteam: changes.endedSteam.length,
       },
       messagesSent: messagesSent,
       stats: stats,
