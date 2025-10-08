@@ -9,6 +9,7 @@
     "cron": "node local-cron.js"
   },
   "dependencies": {
+    "@vercel/kv": "^3.0.0",
     "axios": "^1.7.2",
     "dotenv": "^17.2.3",
     "node-cron": "^3.0.3"
