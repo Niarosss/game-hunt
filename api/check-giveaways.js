@@ -3,7 +3,7 @@ import { Steam } from "../lib/steam.js";
 import { TelegramBot } from "../lib/telegram.js";
 import { Storage } from "../lib/storage.js";
 
-// Функція форматування для нових ігор
+// Форматування повідомлень
 function formatNewGamesMessage(games, platform, title) {
   let message = `${title}\n`;
   message += `🎮 <b>${platform}</b>\n\n`;
@@ -14,12 +14,10 @@ function formatNewGamesMessage(games, platform, title) {
       : "🎁 <b>БЕЗКОШТОВНО</b>\n";
 
     const endDate = game.endDate
-      ? `⏰ До: <b>${game.endDate.toLocaleDateString("uk-UA")}</b>\n`
+      ? `⏰ До: <b>${new Date(game.endDate).toLocaleDateString("uk-UA")}</b>\n`
       : "";
 
-    message += `🎮 <b>${game.title}</b>\n`;
-    message += priceInfo;
-    message += endDate;
+    message += `🎮 <b>${game.title}</b>\n${priceInfo}${endDate}`;
     message += `🔗 <a href="${game.url}">Отримати гру</a>\n\n`;
   });
 
@@ -50,7 +48,7 @@ export default async function handler(req, res) {
 
     console.log("✅ Змінні середовища налаштовані");
 
-    // Отримуємо поточні ігри
+    // Отримання ігор
     const [currentEpicGames, currentSteamGames] = await Promise.all([
       epic.getFreeGames(),
       steam.getFreeGames(),
@@ -60,77 +58,65 @@ export default async function handler(req, res) {
       `📊 Знайдено ігор: Epic: ${currentEpicGames.length}, Steam: ${currentSteamGames.length}`
     );
 
-    // Оновлюємо дані та отримуємо зміни
-    const changes = storage.updateGames(currentEpicGames, currentSteamGames);
+    // Оновлення даних
+    const changes = await storage.updateGames(
+      currentEpicGames,
+      currentSteamGames
+    );
 
     console.log("\n📊 ЗМІНИ:");
     console.log(`🆕 Нові Epic Games: ${changes.newEpic.length}`);
     console.log(`🆕 Нові Steam: ${changes.newSteam.length}`);
-    console.log(`🔚 Завершилися Epic: ${changes.endedEpic.length}`);
-    console.log(`🔚 Завершилися Steam: ${changes.endedSteam.length}`);
 
     let messagesSent = 0;
 
-    // Надсилаємо повідомлення про нові ігри Epic Games
+    // Epic Games
     if (changes.newEpic.length > 0) {
-      console.log("📤 Надсилаю повідомлення про нові ігри Epic Games...");
-
-      const activeNewEpic = changes.newEpic.filter((game) => game.isActive);
-
+      console.log("📤 Надсилаю повідомлення про нові Epic Games...");
+      const activeNewEpic = changes.newEpic.filter((g) => g.isActive);
       if (activeNewEpic.length > 0) {
         const message = formatNewGamesMessage(
           activeNewEpic,
           "Epic Games",
           "🆕 НОВА РОЗДАЧА!"
         );
-        const success = await telegram.sendMessage(message);
-        if (success) {
+        if (await telegram.sendMessage(message)) {
           messagesSent++;
           console.log("✅ Повідомлення Epic Games відправлено");
-        } else {
-          console.log("❌ Помилка відправки повідомлення Epic Games");
         }
       }
     }
 
-    // Надсилаємо повідомлення про нові ігри Steam
+    // Steam
     if (changes.newSteam.length > 0) {
-      console.log("📤 Надсилаю повідомлення про нові ігри Steam...");
-
+      console.log("📤 Надсилаю повідомлення про нові Steam...");
       const message = formatNewGamesMessage(
         changes.newSteam,
         "Steam",
         "🆕 НОВА РОЗДАЧА!"
       );
-      const success = await telegram.sendMessage(message);
-      if (success) {
+      if (await telegram.sendMessage(message)) {
         messagesSent++;
         console.log("✅ Повідомлення Steam відправлено");
-      } else {
-        console.log("❌ Помилка відправки повідомлення Steam");
       }
     }
 
-    if (messagesSent === 0) {
-      console.log("ℹ️ Нових роздач не знайдено");
-    }
+    if (messagesSent === 0) console.log("ℹ️ Нових роздач не знайдено");
 
-    const stats = storage.getStats();
+    const stats = await storage.getStats();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       changes: {
         newEpic: changes.newEpic.length,
         newSteam: changes.newSteam.length,
-        endedEpic: changes.endedEpic.length,
-        endedSteam: changes.endedSteam.length,
       },
-      messagesSent: messagesSent,
-      stats: stats,
+      messagesSent,
+      stats,
     });
   } catch (error) {
     console.error("❌ Помилка перевірки роздач:", error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: error.message,
     });
