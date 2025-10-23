@@ -2,23 +2,40 @@
 import { EpicGames } from "./lib/epic-games.js";
 import { Steam } from "./lib/steam.js";
 import { PSPlus } from "./lib/ps-plus.js";
+import { Storage } from "./lib/storage.js";
+import { TelegramBot } from "./lib/telegram.js";
 
 async function testAllPlatforms() {
-  console.log("🧪 ТЕСТУВАННЯ ВСІХ ПЛАТФОРМ (без БД)\n");
+  console.log("🧪 ТЕСТУВАННЯ ВСІХ ПЛАТФОРМ (з порівнянням даних)\n");
 
   try {
     // Ініціалізація
     const epic = new EpicGames();
     const steam = new Steam();
     const psPlus = new PSPlus();
+    const storage = new Storage();
 
-    console.log("🔄 Завантажую ігри з усіх платформ...\n");
+    // Створюємо TelegramBot з тестовими даними
+    const telegram = new TelegramBot("test-token", "test-chat-id");
+
+    console.log("📁 Завантажую наявні дані з сховища...");
+    const existingData = await storage.loadGames();
+    console.log(
+      `📊 Наявно в сховищі: Epic: ${existingData.epic.length}, Steam: ${
+        existingData.steam.length
+      }, PS Plus: ${
+        existingData.psPlus.monthly.length + existingData.psPlus.catalog.length
+      }`
+    );
+
+    console.log("\n🔄 Завантажую нові ігри з усіх платформ...\n");
 
     // Тестуємо Epic Games
     console.log("🎯 ТЕСТ EPIC GAMES:");
     console.log("───────────────────");
+    let epicGames = [];
     try {
-      const epicGames = await epic.getFreeGames();
+      epicGames = await epic.getFreeGames();
       const activeEpic = epicGames.filter((g) => g.isActive);
       const upcomingEpic = epicGames.filter((g) => !g.isActive && g.startDate);
 
@@ -26,9 +43,14 @@ async function testAllPlatforms() {
       console.log(`🎮 Активних: ${activeEpic.length}`);
       console.log(`📅 Майбутніх: ${upcomingEpic.length}`);
 
-      if (activeEpic.length > 0) {
-        console.log("\n📋 Активні ігри:");
-        activeEpic.forEach((game, index) => {
+      // Порівнюємо з наявними
+      const existingEpicIds = new Set(existingData.epic.map((g) => g.id));
+      const newEpicGames = epicGames.filter((g) => !existingEpicIds.has(g.id));
+      console.log(`🆕 Нових ігор: ${newEpicGames.length}`);
+
+      if (newEpicGames.length > 0) {
+        console.log("\n📋 Нові Epic Games:");
+        newEpicGames.forEach((game, index) => {
           console.log(`  ${index + 1}. ${game.title}`);
           console.log(
             `     💵 Ціна: ${
@@ -46,7 +68,7 @@ async function testAllPlatforms() {
           );
         });
       } else {
-        console.log("ℹ️ Активних ігор не знайдено");
+        console.log("ℹ️ Нових Epic Games не знайдено");
       }
     } catch (error) {
       console.log(`❌ Помилка Epic Games: ${error.message}`);
@@ -54,13 +76,21 @@ async function testAllPlatforms() {
 
     console.log("\n⚡ ТЕСТ STEAM:");
     console.log("──────────────");
+    let steamGames = [];
     try {
-      const steamGames = await steam.getFreeGames();
+      steamGames = await steam.getFreeGames();
       console.log(`✅ Знайдено ігор: ${steamGames.length}`);
 
-      if (steamGames.length > 0) {
-        console.log("\n📋 Ігри Steam:");
-        steamGames.slice(0, 3).forEach((game, index) => {
+      // Порівнюємо з наявними
+      const existingSteamIds = new Set(existingData.steam.map((g) => g.id));
+      const newSteamGames = steamGames.filter(
+        (g) => !existingSteamIds.has(g.id)
+      );
+      console.log(`🆕 Нових ігор: ${newSteamGames.length}`);
+
+      if (newSteamGames.length > 0) {
+        console.log("\n📋 Нові Steam ігри:");
+        newSteamGames.slice(0, 3).forEach((game, index) => {
           console.log(`  ${index + 1}. ${game.title}`);
           console.log(
             `     💵 Ціна: ${
@@ -71,11 +101,11 @@ async function testAllPlatforms() {
           );
           console.log(`     🔗 URL: ${game.url}`);
         });
-        if (steamGames.length > 3) {
-          console.log(`  ... і ще ${steamGames.length - 3} ігор`);
+        if (newSteamGames.length > 3) {
+          console.log(`  ... і ще ${newSteamGames.length - 3} ігор`);
         }
       } else {
-        console.log("ℹ️ Ігор Steam не знайдено");
+        console.log("ℹ️ Нових Steam ігор не знайдено");
       }
     } catch (error) {
       console.log(`❌ Помилка Steam: ${error.message}`);
@@ -83,15 +113,33 @@ async function testAllPlatforms() {
 
     console.log("\n🎮 ТЕСТ PS PLUS:");
     console.log("────────────────");
+    let psPlusGames = { monthly: [], catalog: [], all: [] };
     try {
-      const psPlusGames = await psPlus.getAllGames();
-      console.log(`✅ Місячних ігор: ${psPlusGames.monthly.length}`);
-      console.log(`✅ Ігор в каталозі: ${psPlusGames.catalog.length}`);
-      console.log(`✅ Всього ігор: ${psPlusGames.all.length}`);
+      psPlusGames = await psPlus.getAllGames();
+      console.log(`✅ Знайдено місячних ігор: ${psPlusGames.monthly.length}`);
+      console.log(`✅ Знайдено ігор в каталозі: ${psPlusGames.catalog.length}`);
 
-      if (psPlusGames.monthly.length > 0) {
-        console.log("\n📋 Місячні ігри:");
-        psPlusGames.monthly.forEach((game, index) => {
+      // Порівнюємо з наявними
+      const existingMonthlyTitles = new Set(
+        existingData.psPlus.monthly.map((g) => g.title)
+      );
+      const newMonthlyGames = psPlusGames.monthly.filter(
+        (g) => !existingMonthlyTitles.has(g.title)
+      );
+
+      const existingCatalogTitles = new Set(
+        existingData.psPlus.catalog.map((g) => g.title)
+      );
+      const newCatalogGames = psPlusGames.catalog.filter(
+        (g) => !existingCatalogTitles.has(g.title)
+      );
+
+      console.log(`🆕 Нових місячних ігор: ${newMonthlyGames.length}`);
+      console.log(`🆕 Нових ігор в каталозі: ${newCatalogGames.length}`);
+
+      if (newMonthlyGames.length > 0) {
+        console.log("\n📋 Нові місячні ігри:");
+        newMonthlyGames.forEach((game, index) => {
           console.log(`  ${index + 1}. ${game.title}`);
           console.log(`     🏷️  Тип: ${game.type}`);
           console.log(
@@ -103,163 +151,158 @@ async function testAllPlatforms() {
           );
         });
       } else {
-        console.log("ℹ️ Місячних ігор не знайдено");
+        console.log("ℹ️ Нових місячних ігор не знайдено");
       }
 
-      if (psPlusGames.catalog.length > 0) {
-        console.log("\n📋 Ігри каталогу:");
-        psPlusGames.catalog.slice(0, 5).forEach((game, index) => {
+      if (newCatalogGames.length > 0) {
+        console.log("\n📋 Нові ігри в каталозі:");
+        newCatalogGames.slice(0, 5).forEach((game, index) => {
           console.log(`  ${index + 1}. ${game.title}`);
           console.log(`     🏷️  Тип: ${game.type}`);
         });
-        if (psPlusGames.catalog.length > 5) {
-          console.log(`  ... і ще ${psPlusGames.catalog.length - 5} ігор`);
+        if (newCatalogGames.length > 5) {
+          console.log(`  ... і ще ${newCatalogGames.length - 5} ігор`);
         }
       } else {
-        console.log("ℹ️ Ігор в каталозі не знайдено");
+        console.log("ℹ️ Нових ігор в каталозі не знайдено");
       }
     } catch (error) {
       console.log(`❌ Помилка PS Plus: ${error.message}`);
     }
 
-    // Простий тест "нових" ігор без БД
-    console.log("\n📊 СИМУЛЯЦІЯ НОВИХ ІГОР:");
-    console.log("──────────────────────");
-    console.log(
-      "💡 Уявімо, що всі знайдені ігри - нові (бо БД не використовується)"
-    );
-    console.log(
-      `🆕 Нові Epic Games: ~${
-        epicGames ? epicGames.filter((g) => g.isActive).length : 0
-      }`
-    );
-    console.log(`🆕 Нові Steam: ~${steamGames ? steamGames.length : 0}`);
-    console.log(
-      `🆕 Нові PS Plus Monthly: ~${
-        psPlusGames ? psPlusGames.monthly.length : 0
-      }`
-    );
-    console.log(
-      `🆕 Нові PS Plus Catalog: ~${
-        psPlusGames ? psPlusGames.catalog.length : 0
-      }`
-    );
+    console.log("\n💾 ТЕСТ СХОВИЩА (оновлення даних):");
+    console.log("─────────────────────────────────");
+    try {
+      // Оновлюємо сховище та отримуємо зміни
+      const changes = await storage.updateGames(
+        epicGames,
+        steamGames,
+        psPlusGames
+      );
+
+      console.log("✅ Дані оновлено в локальному сховищі (data/games.json)");
+      console.log(`🆕 Нові Epic Games: ${changes.newEpic.length}`);
+      console.log(`🆕 Нові Steam: ${changes.newSteam.length}`);
+      console.log(
+        `🆕 Нові PS Plus Monthly: ${changes.newPSPlus?.monthly?.length || 0}`
+      );
+      console.log(
+        `🆕 Нові PS Plus Catalog: ${changes.newPSPlus?.catalog?.length || 0}`
+      );
+
+      // Отримуємо оновлену статистику
+      const stats = await storage.getStats();
+      console.log("\n📊 ОНОВЛЕНА СТАТИСТИКА СХОВИЩА:");
+      console.log(`📁 Epic Games: ${stats.totalEpic} ігор`);
+      console.log(`📁 Steam: ${stats.totalSteam} ігор`);
+      console.log(`📁 PS Plus Monthly: ${stats.totalPSPlusMonthly} ігор`);
+      console.log(`📁 PS Plus Catalog: ${stats.totalPSPlusCatalog} ігор`);
+      console.log(
+        `🕐 Останнє оновлення: ${
+          stats.lastUpdate
+            ? new Date(stats.lastUpdate).toLocaleString("uk-UA")
+            : "Ніколи"
+        }`
+      );
+    } catch (error) {
+      console.log(`❌ Помилка сховища: ${error.message}`);
+    }
+
+    console.log("\n📝 ТЕСТ ФОРМАТУВАННЯ ПОВІДОМЛЕНЬ ДЛЯ НОВИХ ІГОР:");
+    console.log("─────────────────────────────────────────────────");
+    try {
+      // Тестуємо форматування тільки для нових ігор
+      const existingEpicIds = new Set(existingData.epic.map((g) => g.id));
+      const newEpicGames = epicGames.filter(
+        (g) => !existingEpicIds.has(g.id) && g.isActive
+      );
+
+      const existingSteamIds = new Set(existingData.steam.map((g) => g.id));
+      const newSteamGames = steamGames.filter(
+        (g) => !existingSteamIds.has(g.id)
+      );
+
+      const existingMonthlyTitles = new Set(
+        existingData.psPlus.monthly.map((g) => g.title)
+      );
+      const newMonthlyGames = psPlusGames.monthly.filter(
+        (g) => !existingMonthlyTitles.has(g.title)
+      );
+
+      const existingCatalogTitles = new Set(
+        existingData.psPlus.catalog.map((g) => g.title)
+      );
+      const newCatalogGames = psPlusGames.catalog.filter(
+        (g) => !existingCatalogTitles.has(g.title)
+      );
+
+      if (newEpicGames.length > 0) {
+        console.log("\n📨 Повідомлення для нових Epic Games:");
+        console.log("──────────────────────────────────");
+        const epicMessage = telegram.formatNewEpicGamesMessage(
+          newEpicGames.slice(0, 2)
+        );
+        console.log(epicMessage);
+      }
+
+      if (newSteamGames.length > 0) {
+        console.log("\n📨 Повідомлення для нових Steam ігор:");
+        console.log("─────────────────────────────────");
+        const steamMessage = telegram.formatNewSteamGamesMessage(
+          newSteamGames.slice(0, 2)
+        );
+        console.log(steamMessage);
+      }
+
+      if (newMonthlyGames.length > 0) {
+        console.log("\n📨 Повідомлення для нових місячних ігор PS Plus:");
+        console.log("───────────────────────────────────────────────");
+        const monthlyMessage =
+          telegram.formatPSPlusMonthlyMessage(newMonthlyGames);
+        console.log(monthlyMessage);
+      }
+
+      if (newCatalogGames.length > 0) {
+        console.log("\n📨 Повідомлення для нових ігор каталогу PS Plus:");
+        console.log("───────────────────────────────────────────────");
+        const catalogMessage = telegram.formatPSPlusCatalogMessage(
+          newCatalogGames.slice(0, 3)
+        );
+        console.log(catalogMessage);
+      }
+
+      if (
+        newEpicGames.length === 0 &&
+        newSteamGames.length === 0 &&
+        newMonthlyGames.length === 0 &&
+        newCatalogGames.length === 0
+      ) {
+        console.log("ℹ️ Немає нових ігор для форматування повідомлень");
+      }
+    } catch (error) {
+      console.log(`❌ Помилка форматування: ${error.message}`);
+    }
 
     console.log("\n🎉 ТЕСТУВАННЯ ЗАВЕРШЕНО!");
-    console.log(
-      "💡 База даних не використовувалась - тільки перевірка парсерів"
-    );
+    console.log("💡 Всі дані оновлено в data/games.json");
   } catch (error) {
     console.error("💥 КРИТИЧНА ПОМИЛКА:", error);
   }
 }
 
-// Тест форматування повідомлень
-function testMessageFormatting() {
-  console.log("\n📝 ТЕСТ ФОРМАТУВАННЯ ПОВІДОМЛЕНЬ:");
-  console.log("─────────────────────────────────");
-
-  function formatEpicMessage(games) {
-    let message = `🎮 <b>EPIC GAMES</b>\n\n`;
-    games.forEach((game, index) => {
-      const priceInfo = game.hasMeaningfulPrice
-        ? `💵 <s>${game.originalPrice}</s> <b>БЕЗКОШТОВНО</b>\n`
-        : `🎁 <b>БЕЗКОШТОВНО</b>\n`;
-
-      const endDate = game.endDate
-        ? `⏰ До: <b>${new Date(game.endDate).toLocaleDateString(
-            "uk-UA"
-          )}</b>\n`
-        : "";
-
-      message += `${index + 1}. <b>${game.title}</b>\n${priceInfo}${endDate}`;
-      message += `🔗 <a href="${game.url}">Отримати гру</a>\n\n`;
-    });
-    return message;
-  }
-
-  function formatPSPlusMessage(monthlyGames, catalogGames) {
-    let message = `🎮 <b>НОВІ ІГРИ PS PLUS</b>\n\n`;
-
-    if (monthlyGames.length > 0) {
-      message += `🎯 <b>МІСЯЧНІ ІГРИ:</b>\n\n`;
-      monthlyGames.forEach((game, index) => {
-        const endDate = game.endDate
-          ? `⏰ До: <b>${new Date(game.endDate).toLocaleDateString(
-              "uk-UA"
-            )}</b>\n`
-          : "";
-
-        message += `${index + 1}. <b>${game.title}</b>\n`;
-        message += `🎁 <b>Включено в PS Plus</b>\n${endDate}`;
-        message += `🔗 <a href="${game.url}">Детальніше</a>\n\n`;
-      });
-    }
-
-    if (catalogGames.length > 0) {
-      message += `📚 <b>ІГРИ В КАТАЛОЗІ:</b>\n\n`;
-      catalogGames.forEach((game, index) => {
-        message += `${index + 1}. <b>${game.title}</b>\n`;
-        message += `🎁 <b>Включено в PS Plus Extra/Premium</b>\n`;
-        message += `🔗 <a href="${game.url}">Детальніше</a>\n\n`;
-      });
-    }
-
-    return message;
-  }
-
-  // Тестові дані
-  const testEpicGames = [
-    {
-      title: "Test Epic Game",
-      hasMeaningfulPrice: true,
-      originalPrice: "₴499",
-      endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      url: "https://store.epicgames.com/test",
-      isActive: true,
-    },
-  ];
-
-  const testPSPlusGames = {
-    monthly: [
-      {
-        title: "Alan Wake 2 | PS5",
-        url: "https://blog.playstation.com/test",
-        endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        type: "monthly",
-      },
-    ],
-    catalog: [
-      {
-        title: "Silent Hill 2 | PS5",
-        url: "https://blog.playstation.com/test",
-        type: "catalog",
-      },
-    ],
-  };
-
-  console.log("\n📨 Epic Games повідомлення:");
-  console.log("─────────────────────────");
-  console.log(formatEpicMessage(testEpicGames));
-
-  console.log("\n📨 PS Plus повідомлення:");
-  console.log("───────────────────────");
-  console.log(
-    formatPSPlusMessage(testPSPlusGames.monthly, testPSPlusGames.catalog)
-  );
-}
-
 // Головна функція запуску
 async function main() {
-  console.log("🚀 ЗАПУСК КОМПЛЕКСНОГО ТЕСТУ (без БД)");
-  console.log("=====================================\n");
+  console.log("🚀 ЗАПУСК КОМПЛЕКСНОГО ТЕСТУ (з порівнянням даних)");
+  console.log("==================================================\n");
+
+  // Встановлюємо локальний режим
+  process.env.VERCEL_ENV = "development";
 
   await testAllPlatforms();
-  testMessageFormatting();
 
   console.log("\n✅ ВСІ ТЕСТИ ЗАВЕРШЕНІ");
   console.log(
-    "📋 Перевірено: Epic Games, Steam, PS Plus, форматування повідомлень"
+    "📋 Перевірено: порівняння даних, виявлення нових ігор, оновлення сховища"
   );
 }
 

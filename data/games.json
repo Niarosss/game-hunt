@@ -1,5 +1,161 @@
 {
-  "epic": [],
-  "steam": [],
-  "lastUpdate": null
+  "epic": [
+    {
+      "title": "Amnesia: The Bunker",
+      "description": "Amnesia: The Bunker is a first-person horror game set in a desolate WW1 Bunker.\n\nFace the oppressing terrors stalking in the dark. Search for and use the tools and weapons at your disposal. Keep the lights on at all costs and make your way out alive.",
+      "url": "https://store.epicgames.com/uk/p/amnesia-the-bunker-9d5799",
+      "originalPrice": "459,00 ₴",
+      "hasMeaningfulPrice": true,
+      "startDate": "2025-10-16T15:00:00.000Z",
+      "endDate": "2025-10-23T15:00:00.000Z",
+      "image": "https://cdn1.epicgames.com/spt-assets/671aee4c8fb64a1c967d97f31f093e7a/amnesia-the-bunker-2sa1q.png",
+      "platform": "Epic Games",
+      "id": "7ae41233a8ad4fd4a2d5a415abd77d24",
+      "isActive": true
+    },
+    {
+      "title": "Samorost 3",
+      "description": "Samorost 3 follows a curious space gnome who uses the powers of a magic flute to travel across the cosmos in search of its mysterious origins. Visit nine unique and alien worlds teeming with colorful challenges, creatures and surprises to discover.",
+      "url": "https://store.epicgames.com/uk/p/samorost-3-0c4489",
+      "originalPrice": "299,00 ₴",
+      "hasMeaningfulPrice": true,
+      "startDate": "2025-10-16T15:00:00.000Z",
+      "endDate": "2025-10-23T15:00:00.000Z",
+      "image": "https://cdn1.epicgames.com/spt-assets/b2c854d46f0f46de8b14e1178b7e85fc/samorost-3-1mgr8.jpg",
+      "platform": "Epic Games",
+      "id": "5e8e1821206d4b5994e09cd153f77f96",
+      "isActive": true
+    }
+  ],
+  "steam": [
+    {
+      "title": "Distant Space",
+      "description": "Distant Space are present the arcade game of cosmic fights in arcade style of the 80's, this is a game where you can control the spaceship and forced to destroy extraterrestrials, which are moving in the certain order.",
+      "url": "https://store.steampowered.com/app/569610",
+      "originalPrice": "26₴",
+      "startDate": "2025-10-23T14:49:42.129Z",
+      "endDate": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/569610/header.jpg?t=1761081429",
+      "platform": "Steam",
+      "id": "569610",
+      "isActive": true
+    }
+  ],
+  "psPlus": {
+    "monthly": [
+      {
+        "title": "Alan Wake 2 | PS5",
+        "description": "Місячна гра PS Plus",
+        "url": "https://blog.playstation.com/2025/10/01/playstation-plus-monthly-games-for-october-alan-wake-2-goat-simulator-3-cocoon/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "monthly",
+        "isActive": true,
+        "endDate": "2025-11-03T22:00:00.000Z"
+      },
+      {
+        "title": "Goat Simulator 3 | PS4, PS5",
+        "description": "Місячна гра PS Plus",
+        "url": "https://blog.playstation.com/2025/10/01/playstation-plus-monthly-games-for-october-alan-wake-2-goat-simulator-3-cocoon/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "monthly",
+        "isActive": true,
+        "endDate": "2025-11-03T22:00:00.000Z"
+      },
+      {
+        "title": "Cocoon | PS4, PS5",
+        "description": "Місячна гра PS Plus",
+        "url": "https://blog.playstation.com/2025/10/01/playstation-plus-monthly-games-for-october-alan-wake-2-goat-simulator-3-cocoon/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "monthly",
+        "isActive": true,
+        "endDate": "2025-11-03T22:00:00.000Z"
+      }
+    ],
+    "catalog": [
+      {
+        "title": "Silent Hill 2 | PS5",
+        "description": "Гра з каталогу PS Plus",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "catalog",
+        "isActive": true,
+        "endDate": null
+      },
+      {
+        "title": "Until Dawn | PS5",
+        "description": "Гра з каталогу PS Plus",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "catalog",
+        "isActive": true,
+        "endDate": null
+      },
+      {
+        "title": "V Rising | PS5",
+        "description": "Гра з каталогу PS Plus",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "catalog",
+        "isActive": true,
+        "endDate": null
+      },
+      {
+        "title": "Yakuza: Like a Dragon | PS5, PS4",
+        "description": "Гра з каталогу PS Plus",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "catalog",
+        "isActive": true,
+        "endDate": null
+      },
+      {
+        "title": "Poppy Playtime: Chapter 1 | PS5, PS4",
+        "description": "Гра з каталогу PS Plus",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "catalog",
+        "isActive": true,
+        "endDate": null
+      },
+      {
+        "title": "As Dusk Falls | PS5, PS4",
+        "description": "Гра з каталогу PS Plus",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "catalog",
+        "isActive": true,
+        "endDate": null
+      },
+      {
+        "title": "Wizard with a Gun | PS5",
+        "description": "Гра з каталогу PS Plus",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "catalog",
+        "isActive": true,
+        "endDate": null
+      },
+      {
+        "title": "Tekken 3 | PS5, PS4",
+        "description": "Гра з каталогу PS Plus",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "image": "https://blog.playstation.com/tachyon/2025/10/3703acf59bec1493b56b85d5e2c50f129db769cc.jpg?resize=1088%2C612&crop_strategy=smart",
+        "platform": "PS Plus",
+        "type": "catalog",
+        "isActive": true,
+        "endDate": null
+      }
+    ]
+  },
+  "lastUpdate": "2025-10-23T14:49:43.331Z"
 }

@@ -1,30 +1,8 @@
-// check-giveaways.js
 import { EpicGames } from "../lib/epic-games.js";
 import { Steam } from "../lib/steam.js";
 import { PSPlus } from "../lib/ps-plus.js";
 import { TelegramBot } from "../lib/telegram.js";
 import { Storage } from "../lib/storage.js";
-
-// Форматування повідомлень
-function formatNewGamesMessage(games, platform, title) {
-  let message = `${title}\n`;
-  message += `🎮 <b>${platform}</b>\n\n`;
-
-  games.forEach((game) => {
-    const priceInfo = game.hasMeaningfulPrice
-      ? `💵 <s>${game.originalPrice}</s> <b>БЕЗКОШТОВНО</b>\n`
-      : "🎁 <b>БЕЗКОШТОВНО</b>\n";
-
-    const endDate = game.endDate
-      ? `⏰ До: <b>${new Date(game.endDate).toLocaleDateString("uk-UA")}</b>\n`
-      : "";
-
-    message += `🎮 <b>${game.title}</b>\n${priceInfo}${endDate}`;
-    message += `🔗 <a href="${game.url}">Отримати гру</a>\n\n`;
-  });
-
-  return message;
-}
 
 export default async function handler(req, res) {
   try {
@@ -58,7 +36,7 @@ export default async function handler(req, res) {
         steam.getFreeGames(),
         psPlus.getAllGames().catch((error) => {
           console.log("❌ Помилка отримання PS Plus ігор:", error.message);
-          return { monthly: [], catalog: [], all: [] }; // Безпечне значення при помилці
+          return { monthly: [], catalog: [], all: [] };
         }),
       ]);
 
@@ -81,7 +59,7 @@ export default async function handler(req, res) {
     const changes = await storage.updateGames(
       currentEpicGames,
       currentSteamGames,
-      safePSPlusGames // Використовуємо безпечну версію
+      safePSPlusGames
     );
 
     console.log("\n📊 ЗМІНИ:");
@@ -101,12 +79,7 @@ export default async function handler(req, res) {
       console.log("📤 Надсилаю повідомлення про нові Epic Games...");
       const activeNewEpic = changes.newEpic.filter((g) => g.isActive);
       if (activeNewEpic.length > 0) {
-        const message = formatNewGamesMessage(
-          activeNewEpic,
-          "Epic Games",
-          "🆕 НОВА РОЗДАЧА!"
-        );
-        if (await telegram.sendMessage(message)) {
+        if (await telegram.sendNewEpicGames(activeNewEpic)) {
           messagesSent++;
           console.log("✅ Повідомлення Epic Games відправлено");
         }
@@ -115,27 +88,34 @@ export default async function handler(req, res) {
 
     // Steam
     if (changes.newSteam.length > 0) {
-      console.log("📤 Надсилаю повідомлення про нові Steam...");
-      const message = formatNewGamesMessage(
-        changes.newSteam,
-        "Steam",
-        "🆕 НОВА РОЗДАЧА!"
-      );
-      if (await telegram.sendMessage(message)) {
+      console.log("📤 Надсилаю повідomлення про нові Steam...");
+      if (await telegram.sendNewSteamGames(changes.newSteam)) {
         messagesSent++;
         console.log("✅ Повідомлення Steam відправлено");
       }
     }
 
-    // PS Plus
+    // PS Plus - розділяємо повідомлення
     const newMonthly = changes.newPSPlus?.monthly || [];
     const newCatalog = changes.newPSPlus?.catalog || [];
 
-    if (newMonthly.length > 0 || newCatalog.length > 0) {
-      console.log("📤 Надсилаю повідомлення про нові ігри PS Plus...");
-      if (await telegram.sendPSPlusUpdate(newMonthly, newCatalog)) {
+    // Місячні ігри - окреме повідомлення
+    if (newMonthly.length > 0) {
+      console.log("📤 Надсилаю повідомлення про нові місячні ігри PS Plus...");
+      if (await telegram.sendPSPlusMonthly(newMonthly)) {
         messagesSent++;
-        console.log("✅ Повідомлення PS Plus відправлено");
+        console.log("✅ Повідомлення про місячні ігри PS Plus відправлено");
+      }
+    }
+
+    // Ігри каталогу - окреме повідомлення
+    if (newCatalog.length > 0) {
+      console.log(
+        "📤 Надсилаю повідомлення про нові ігри в каталозі PS Plus..."
+      );
+      if (await telegram.sendPSPlusCatalog(newCatalog)) {
+        messagesSent++;
+        console.log("✅ Повідомлення про ігри каталогу PS Plus відправлено");
       }
     }
 
