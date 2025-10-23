@@ -24,7 +24,8 @@ async function testAllPlatforms() {
       `📊 Наявно в сховищі: Epic: ${existingData.epic.length}, Steam: ${
         existingData.steam.length
       }, PS Plus: ${
-        existingData.psPlus.monthly.length + existingData.psPlus.catalog.length
+        (existingData.psPlus?.monthly?.games?.length || 0) +
+        (existingData.psPlus?.catalog?.games?.length || 0)
       }`
     );
 
@@ -113,24 +114,46 @@ async function testAllPlatforms() {
 
     console.log("\n🎮 ТЕСТ PS PLUS:");
     console.log("────────────────");
-    let psPlusGames = { monthly: [], catalog: [], all: [] };
+    let psPlusData = {
+      monthly: { games: [], article: null },
+      catalog: { games: [], article: null },
+      all: [],
+    };
     try {
-      psPlusGames = await psPlus.getAllGames();
-      console.log(`✅ Знайдено місячних ігор: ${psPlusGames.monthly.length}`);
-      console.log(`✅ Знайдено ігор в каталозі: ${psPlusGames.catalog.length}`);
+      psPlusData = await psPlus.getAllGames();
+      console.log(
+        `✅ Знайдено місячних ігор: ${psPlusData.monthly.games.length}`
+      );
+      console.log(
+        `✅ Знайдено ігор в каталозі: ${psPlusData.catalog.games.length}`
+      );
+      console.log(
+        `📰 Стаття місячних: ${
+          psPlusData.monthly.article
+            ? psPlusData.monthly.article.title
+            : "немає"
+        }`
+      );
+      console.log(
+        `📰 Стаття каталогу: ${
+          psPlusData.catalog.article
+            ? psPlusData.catalog.article.title
+            : "немає"
+        }`
+      );
 
       // Порівнюємо з наявними
       const existingMonthlyTitles = new Set(
-        existingData.psPlus.monthly.map((g) => g.title)
+        (existingData.psPlus?.monthly?.games || []).map((g) => g.title)
       );
-      const newMonthlyGames = psPlusGames.monthly.filter(
+      const newMonthlyGames = psPlusData.monthly.games.filter(
         (g) => !existingMonthlyTitles.has(g.title)
       );
 
       const existingCatalogTitles = new Set(
-        existingData.psPlus.catalog.map((g) => g.title)
+        (existingData.psPlus?.catalog?.games || []).map((g) => g.title)
       );
-      const newCatalogGames = psPlusGames.catalog.filter(
+      const newCatalogGames = psPlusData.catalog.games.filter(
         (g) => !existingCatalogTitles.has(g.title)
       );
 
@@ -177,17 +200,21 @@ async function testAllPlatforms() {
       const changes = await storage.updateGames(
         epicGames,
         steamGames,
-        psPlusGames
+        psPlusData
       );
 
       console.log("✅ Дані оновлено в локальному сховищі (data/games.json)");
       console.log(`🆕 Нові Epic Games: ${changes.newEpic.length}`);
       console.log(`🆕 Нові Steam: ${changes.newSteam.length}`);
       console.log(
-        `🆕 Нові PS Plus Monthly: ${changes.newPSPlus?.monthly?.length || 0}`
+        `🆕 Нові PS Plus Monthly: ${
+          changes.newPSPlus?.monthly?.games?.length || 0
+        }`
       );
       console.log(
-        `🆕 Нові PS Plus Catalog: ${changes.newPSPlus?.catalog?.length || 0}`
+        `🆕 Нові PS Plus Catalog: ${
+          changes.newPSPlus?.catalog?.games?.length || 0
+        }`
       );
 
       // Отримуємо оновлену статистику
@@ -223,16 +250,16 @@ async function testAllPlatforms() {
       );
 
       const existingMonthlyTitles = new Set(
-        existingData.psPlus.monthly.map((g) => g.title)
+        (existingData.psPlus?.monthly?.games || []).map((g) => g.title)
       );
-      const newMonthlyGames = psPlusGames.monthly.filter(
+      const newMonthlyGames = psPlusData.monthly.games.filter(
         (g) => !existingMonthlyTitles.has(g.title)
       );
 
       const existingCatalogTitles = new Set(
-        existingData.psPlus.catalog.map((g) => g.title)
+        (existingData.psPlus?.catalog?.games || []).map((g) => g.title)
       );
-      const newCatalogGames = psPlusGames.catalog.filter(
+      const newCatalogGames = psPlusData.catalog.games.filter(
         (g) => !existingCatalogTitles.has(g.title)
       );
 
@@ -257,8 +284,10 @@ async function testAllPlatforms() {
       if (newMonthlyGames.length > 0) {
         console.log("\n📨 Повідомлення для нових місячних ігор PS Plus:");
         console.log("───────────────────────────────────────────────");
-        const monthlyMessage =
-          telegram.formatPSPlusMonthlyMessage(newMonthlyGames);
+        const monthlyMessage = telegram.formatPSPlusMonthlyMessage(
+          newMonthlyGames,
+          psPlusData.monthly.article
+        );
         console.log(monthlyMessage);
       }
 
@@ -266,7 +295,8 @@ async function testAllPlatforms() {
         console.log("\n📨 Повідомлення для нових ігор каталогу PS Plus:");
         console.log("───────────────────────────────────────────────");
         const catalogMessage = telegram.formatPSPlusCatalogMessage(
-          newCatalogGames.slice(0, 3)
+          newCatalogGames.slice(0, 3),
+          psPlusData.catalog.article
         );
         console.log(catalogMessage);
       }

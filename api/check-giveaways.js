@@ -36,26 +36,28 @@ export default async function handler(req, res) {
         steam.getFreeGames(),
         psPlus.getAllGames().catch((error) => {
           console.log("❌ Помилка отримання PS Plus ігор:", error.message);
-          return { monthly: [], catalog: [], all: [] };
+          return {
+            monthly: { games: [], article: null },
+            catalog: { games: [], article: null },
+            all: [],
+          };
         }),
       ]);
 
     // Гарантуємо правильну структуру для PS Plus
     const safePSPlusGames = {
-      monthly: psPlusGames?.monthly || [],
-      catalog: psPlusGames?.catalog || [],
+      monthly: {
+        games: psPlusGames?.monthly?.games || [],
+        article: psPlusGames?.monthly?.article || null,
+      },
+      catalog: {
+        games: psPlusGames?.catalog?.games || [],
+        article: psPlusGames?.catalog?.article || null,
+      },
       all: psPlusGames?.all || [],
     };
 
-    console.log(
-      `📊 Знайдено ігор: Epic: ${currentEpicGames.length}, Steam: ${
-        currentSteamGames.length
-      }, PS Plus: ${
-        safePSPlusGames.monthly.length + safePSPlusGames.catalog.length
-      }`
-    );
-
-    // Оновлення даних
+    // В оновленні даних:
     const changes = await storage.updateGames(
       currentEpicGames,
       currentSteamGames,
@@ -96,13 +98,15 @@ export default async function handler(req, res) {
     }
 
     // PS Plus - розділяємо повідомлення
-    const newMonthly = changes.newPSPlus?.monthly || [];
-    const newCatalog = changes.newPSPlus?.catalog || [];
+    const newMonthly = changes.newPSPlus?.monthly?.games || [];
+    const newCatalog = changes.newPSPlus?.catalog?.games || [];
+    const monthlyArticle = safePSPlusGames.monthly.article;
+    const catalogArticle = safePSPlusGames.catalog.article;
 
     // Місячні ігри - окреме повідомлення
     if (newMonthly.length > 0) {
       console.log("📤 Надсилаю повідомлення про нові місячні ігри PS Plus...");
-      if (await telegram.sendPSPlusMonthly(newMonthly)) {
+      if (await telegram.sendPSPlusMonthly(newMonthly, monthlyArticle)) {
         messagesSent++;
         console.log("✅ Повідомлення про місячні ігри PS Plus відправлено");
       }
@@ -113,7 +117,7 @@ export default async function handler(req, res) {
       console.log(
         "📤 Надсилаю повідомлення про нові ігри в каталозі PS Plus..."
       );
-      if (await telegram.sendPSPlusCatalog(newCatalog)) {
+      if (await telegram.sendPSPlusCatalog(newCatalog, catalogArticle)) {
         messagesSent++;
         console.log("✅ Повідомлення про ігри каталогу PS Plus відправлено");
       }
