@@ -8,16 +8,6 @@ export default async function handler(req, res) {
   try {
     console.log("🔄 Перевіряю нові роздачі...");
 
-    // Ініціалізація
-    const epic = new EpicGames();
-    const steam = new Steam();
-    const psPlus = new PSPlus();
-    const storage = new Storage();
-    const telegram = new TelegramBot(
-      process.env.TELEGRAM_BOT_TOKEN,
-      process.env.TELEGRAM_CHAT_ID
-    );
-
     // Перевірка змінних середовища
     if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
       console.log("❌ Відсутні змінні середовища");
@@ -29,20 +19,36 @@ export default async function handler(req, res) {
 
     console.log("✅ Змінні середовища налаштовані");
 
+    // Ініціалізація
+    const epic = new EpicGames();
+    const steam = new Steam();
+    const psPlus = new PSPlus();
+    const storage = new Storage();
+    const telegram = new TelegramBot(
+      process.env.TELEGRAM_BOT_TOKEN,
+      process.env.TELEGRAM_CHAT_ID
+    );
+
     // Отримання ігор з усіх платформ
     const [currentEpicGames, currentSteamGames, psPlusGames] =
-      await Promise.all([
+      await Promise.allSettled([
         epic.getFreeGames(),
         steam.getFreeGames(),
-        psPlus.getAllGames().catch((error) => {
-          console.log("❌ Помилка отримання PS Plus ігор:", error.message);
-          return {
-            monthly: { games: [], article: null },
-            catalog: { games: [], article: null },
-            all: [],
-          };
-        }),
-      ]);
+        psPlus.getAllGames(),
+      ]).then((results) => {
+        // Обробка результатів з помилками
+        return results.map((result, index) => {
+          if (result.status === "rejected") {
+            const platform = ["Epic Games", "Steam", "PS Plus"][index];
+            console.log(
+              `❌ Помилка отримання ${platform} ігор:`,
+              result.reason.message
+            );
+            return { games: [], article: null }; // Повертаємо пусті дані при помилці
+          }
+          return result.value;
+        });
+      });
 
     // Гарантуємо правильну структуру для PS Plus
     const safePSPlusGames = {
@@ -57,10 +63,10 @@ export default async function handler(req, res) {
       all: psPlusGames?.all || [],
     };
 
-    // В оновленні даних:
+    // Оновлення даних
     const changes = await storage.updateGames(
-      currentEpicGames,
-      currentSteamGames,
+      currentEpicGames.games || currentEpicGames,
+      currentSteamGames.games || currentSteamGames,
       safePSPlusGames
     );
 
@@ -90,7 +96,7 @@ export default async function handler(req, res) {
 
     // Steam
     if (changes.newSteam.length > 0) {
-      console.log("📤 Надсилаю повідomлення про нові Steam...");
+      console.log("📤 Надсилаю повідомлення про нові Steam ігри...");
       if (await telegram.sendNewSteamGames(changes.newSteam)) {
         messagesSent++;
         console.log("✅ Повідомлення Steam відправлено");
@@ -98,8 +104,8 @@ export default async function handler(req, res) {
     }
 
     // PS Plus - розділяємо повідомлення
-    const newMonthly = changes.newPSPlus?.monthly?.games || [];
-    const newCatalog = changes.newPSPlus?.catalog?.games || [];
+    const newMonthly = changes.newPSPlus?.monthly || [];
+    const newCatalog = changes.newPSPlus?.catalog || [];
     const monthlyArticle = safePSPlusGames.monthly.article;
     const catalogArticle = safePSPlusGames.catalog.article;
 
@@ -123,7 +129,9 @@ export default async function handler(req, res) {
       }
     }
 
-    if (messagesSent === 0) console.log("ℹ️ Нових роздач не знайдено");
+    if (messagesSent === 0) {
+      console.log("ℹ️ Нових роздач не знайдено");
+    }
 
     const stats = await storage.getStats();
 
@@ -139,7 +147,7 @@ export default async function handler(req, res) {
       stats,
     });
   } catch (error) {
-    console.error("❌ Помилка перевірки роздач:", error);
+    console.error("❌ Критична помилка перевірки роздач:", error);
     return res.status(500).json({
       success: false,
       error: error.message,
