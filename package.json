@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node api/check-giveaways.js",
-    "dev": "node local-test.js",
-    "cron": "node local-cron.js"
+    "test": "node test-all.js"
   },
   "dependencies": {
     "@upstash/redis": "^1.35.5",
