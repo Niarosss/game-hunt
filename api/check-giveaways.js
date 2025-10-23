@@ -1,7 +1,7 @@
 // check-giveaways.js
 import { EpicGames } from "../lib/epic-games.js";
 import { Steam } from "../lib/steam.js";
-import { PSPlus } from "../lib/ps-plus.js"; // Додаємо PS Plus
+import { PSPlus } from "../lib/ps-plus.js";
 import { TelegramBot } from "../lib/telegram.js";
 import { Storage } from "../lib/storage.js";
 
@@ -56,27 +56,43 @@ export default async function handler(req, res) {
       await Promise.all([
         epic.getFreeGames(),
         steam.getFreeGames(),
-        psPlus.getAllGames(), // Отримуємо всі ігри PS Plus
+        psPlus.getAllGames().catch((error) => {
+          console.log("❌ Помилка отримання PS Plus ігор:", error.message);
+          return { monthly: [], catalog: [], all: [] }; // Безпечне значення при помилці
+        }),
       ]);
+
+    // Гарантуємо правильну структуру для PS Plus
+    const safePSPlusGames = {
+      monthly: psPlusGames?.monthly || [],
+      catalog: psPlusGames?.catalog || [],
+      all: psPlusGames?.all || [],
+    };
 
     console.log(
       `📊 Знайдено ігор: Epic: ${currentEpicGames.length}, Steam: ${
         currentSteamGames.length
-      }, PS Plus: ${psPlusGames.monthly.length + psPlusGames.catalog.length}`
+      }, PS Plus: ${
+        safePSPlusGames.monthly.length + safePSPlusGames.catalog.length
+      }`
     );
 
     // Оновлення даних
     const changes = await storage.updateGames(
       currentEpicGames,
       currentSteamGames,
-      psPlusGames // Додаємо PS Plus
+      safePSPlusGames // Використовуємо безпечну версію
     );
 
     console.log("\n📊 ЗМІНИ:");
     console.log(`🆕 Нові Epic Games: ${changes.newEpic.length}`);
     console.log(`🆕 Нові Steam: ${changes.newSteam.length}`);
-    console.log(`🆕 Нові PS Plus Monthly: ${changes.newPSPlus.monthly.length}`);
-    console.log(`🆕 Нові PS Plus Catalog: ${changes.newPSPlus.catalog.length}`);
+    console.log(
+      `🆕 Нові PS Plus Monthly: ${changes.newPSPlus?.monthly?.length || 0}`
+    );
+    console.log(
+      `🆕 Нові PS Plus Catalog: ${changes.newPSPlus?.catalog?.length || 0}`
+    );
 
     let messagesSent = 0;
 
@@ -112,17 +128,12 @@ export default async function handler(req, res) {
     }
 
     // PS Plus
-    if (
-      changes.newPSPlus.monthly.length > 0 ||
-      changes.newPSPlus.catalog.length > 0
-    ) {
+    const newMonthly = changes.newPSPlus?.monthly || [];
+    const newCatalog = changes.newPSPlus?.catalog || [];
+
+    if (newMonthly.length > 0 || newCatalog.length > 0) {
       console.log("📤 Надсилаю повідомлення про нові ігри PS Plus...");
-      if (
-        await telegram.sendPSPlusUpdate(
-          changes.newPSPlus.monthly,
-          changes.newPSPlus.catalog
-        )
-      ) {
+      if (await telegram.sendPSPlusUpdate(newMonthly, newCatalog)) {
         messagesSent++;
         console.log("✅ Повідомлення PS Plus відправлено");
       }
@@ -137,8 +148,8 @@ export default async function handler(req, res) {
       changes: {
         newEpic: changes.newEpic.length,
         newSteam: changes.newSteam.length,
-        newPSPlusMonthly: changes.newPSPlus.monthly.length,
-        newPSPlusCatalog: changes.newPSPlus.catalog.length,
+        newPSPlusMonthly: newMonthly.length,
+        newPSPlusCatalog: newCatalog.length,
       },
       messagesSent,
       stats,
