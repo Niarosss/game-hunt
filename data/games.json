@@ -1,0 +1,134 @@
+{
+  "epic": [
+    {
+      "title": "Fear the Spotlight",
+      "url": "https://store.epicgames.com/uk/p/fear-the-spotlight-97656f",
+      "originalPrice": "369,00 ₴",
+      "startDate": "2025-10-23T15:00:00.000Z",
+      "endDate": "2025-10-30T15:00:00.000Z",
+      "platform": "Epic Games",
+      "id": "1f1bb7fd09a94d8f9d9219210ffacf95",
+      "isActive": true
+    }
+  ],
+  "steam": [
+    {
+      "title": "Distant Space",
+      "url": "https://store.steampowered.com/app/569610",
+      "originalPrice": "26₴",
+      "endDate": null,
+      "platform": "Steam",
+      "id": "569610",
+      "isActive": true
+    }
+  ],
+  "psPlus": {
+    "monthly": {
+      "games": [
+        {
+          "title": "Alan Wake 2 | PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP1464-PPSA02572_00-ALANWAKE20000000",
+          "platform": "PS Plus",
+          "type": "monthly",
+          "endDate": "2025-11-04T16:48:11.719Z",
+          "isActive": true
+        },
+        {
+          "title": "Goat Simulator 3 | PS4, PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP4837-CUSA46680_00-GOATSIM3FGPS4EUR",
+          "platform": "PS Plus",
+          "type": "monthly",
+          "endDate": "2025-11-04T16:48:12.401Z",
+          "isActive": true
+        },
+        {
+          "title": "Cocoon | PS4, PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP2333-PPSA08766_00-COCOONSIEE000000",
+          "platform": "PS Plus",
+          "type": "monthly",
+          "endDate": "2025-11-04T16:48:12.879Z",
+          "isActive": true
+        }
+      ],
+      "article": {
+        "title": "PlayStation Plus Monthly Games for October: Alan Wake 2, Goat Simulator 3, Cocoon",
+        "url": "https://blog.playstation.com/2025/10/01/playstation-plus-monthly-games-for-october-alan-wake-2-goat-simulator-3-cocoon/",
+        "date": "2025-10-01T15:30:05.000Z"
+      }
+    },
+    "catalog": {
+      "games": [
+        {
+          "title": "Silent Hill 2 | PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP0101-PPSA08709_00-MAINGAME00000000",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Until Dawn | PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP9000-PPSA15421_00-FULLGAME00000001",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "V Rising | PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP0775-PPSA16262_00-0000000000000001",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Yakuza: Like a Dragon | PS5, PS4",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP0177-PPSA02384_00-LIKEADRAGON00000",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Poppy Playtime: Chapter 1 | PS5, PS4",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP8293-CUSA46876_00-0762588869730386",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "As Dusk Falls | PS5, PS4",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP4805-PPSA17815_00-0116471426676322",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Wizard with a Gun | PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP3643-PPSA06417_00-3177834950895077",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Tekken 3 | PS5, PS4",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/UP0700-PPSA31291_00-TEKKEN3000000000",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        }
+      ],
+      "article": {
+        "title": "PlayStation Plus Game Catalog for October: Silent Hill 2, Until Dawn, V Rising, Yakuza: Like a Dragon and more",
+        "url": "https://blog.playstation.com/2025/10/15/playstation-plus-game-catalog-for-october-silent-hill-2-until-dawn-v-rising-yakuza-like-a-dragon-and-more/",
+        "date": "2025-10-15T15:30:23.000Z"
+      }
+    }
+  },
+  "lastUpdate": "2025-10-24T15:48:14.012Z"
+}

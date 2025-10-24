@@ -37,12 +37,6 @@ async function testAllPlatforms() {
     let epicGames = [];
     try {
       epicGames = await epic.getFreeGames();
-      const activeEpic = epicGames.filter((g) => g.isActive);
-      const upcomingEpic = epicGames.filter((g) => !g.isActive && g.startDate);
-
-      console.log(`✅ Знайдено ігор: ${epicGames.length}`);
-      console.log(`🎮 Активних: ${activeEpic.length}`);
-      console.log(`📅 Майбутніх: ${upcomingEpic.length}`);
 
       // Порівнюємо з наявними
       const existingEpicIds = new Set(existingData.epic.map((g) => g.id));
@@ -80,7 +74,6 @@ async function testAllPlatforms() {
     let steamGames = [];
     try {
       steamGames = await steam.getFreeGames();
-      console.log(`✅ Знайдено ігор: ${steamGames.length}`);
 
       // Порівнюємо з наявними
       const existingSteamIds = new Set(existingData.steam.map((g) => g.id));
