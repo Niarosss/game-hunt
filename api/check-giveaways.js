@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     );
 
     // Отримання ігор з усіх платформ
-    const [currentEpicGames, currentSteamGames, psPlusGames] =
+    const [currentEpicGames, currentSteamGames, psPlusGamesResult] = // Змінено назву змінної для уникнення конфлікту
       await Promise.allSettled([
         epic.getFreeGames(),
         steam.getFreeGames(),
@@ -44,30 +44,56 @@ export default async function handler(req, res) {
               `❌ Помилка отримання ${platform} ігор:`,
               result.reason.message
             );
-            return { games: [], article: null }; // Повертаємо пусті дані при помилці
+            // Для PS Plus, якщо помилка, повертаємо структуру, яку очікує safePSPlusGames
+            if (platform === "PS Plus") {
+              return {
+                monthly: { games: [], article: null },
+                catalog: { games: [], article: null },
+                all: [],
+              };
+            }
+            return { games: [], article: null };
           }
           return result.value;
         });
       });
 
+    // Додайте це логування, щоб побачити сирі дані від PS Plus
+    console.log(
+      "\n🔍 Сирі дані PS Plus від psPlus.getAllGames():",
+      JSON.stringify(psPlusGamesResult, null, 2)
+    );
+
     // Гарантуємо правильну структуру для PS Plus
     const safePSPlusGames = {
       monthly: {
-        games: psPlusGames?.monthly?.games || [],
-        article: psPlusGames?.monthly?.article || null,
+        games: psPlusGamesResult?.monthly?.games || [], // Використовуємо psPlusGamesResult
+        article: psPlusGamesResult?.monthly?.article || null, // Використовуємо psPlusGamesResult
       },
       catalog: {
-        games: psPlusGames?.catalog?.games || [],
-        article: psPlusGames?.catalog?.article || null,
+        games: psPlusGamesResult?.catalog?.games || [], // Використовуємо psPlusGamesResult
+        article: psPlusGamesResult?.catalog?.article || null, // Використовуємо psPlusGamesResult
       },
-      all: psPlusGames?.all || [],
+      all: psPlusGamesResult?.all || [], // Використовуємо psPlusGamesResult
     };
+
+    // Додайте це логування, щоб побачити, що передається в storage.updateGames
+    console.log(
+      "\n🔍 safePSPlusGames перед storage.updateGames():",
+      JSON.stringify(safePSPlusGames, null, 2)
+    );
 
     // Оновлення даних
     const changes = await storage.updateGames(
       currentEpicGames.games || currentEpicGames,
       currentSteamGames.games || currentSteamGames,
       safePSPlusGames
+    );
+
+    // Додайте це логування, щоб побачити повний об'єкт змін
+    console.log(
+      "\n🔍 Повний об'єкт змін (changes):",
+      JSON.stringify(changes, null, 2)
     );
 
     console.log("\n📊 ЗМІНИ:");
