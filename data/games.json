@@ -1,24 +1,52 @@
 {
   "epic": [
     {
-      "title": "Fear the Spotlight",
-      "url": "https://store.epicgames.com/uk/p/fear-the-spotlight-97656f",
-      "originalPrice": "369,00 ₴",
-      "startDate": "2025-10-23T15:00:00.000Z",
-      "endDate": "2025-10-30T15:00:00.000Z",
+      "title": "Idle Champions of the Forgotten Realms",
+      "url": "https://store.epicgames.com/uk/p/idle-champions-of-the-forgotten-realms",
+      "originalPrice": "0",
+      "startDate": "2025-11-06T16:00:00.000Z",
+      "endDate": "2025-11-13T16:00:00.000Z",
       "platform": "Epic Games",
-      "id": "1f1bb7fd09a94d8f9d9219210ffacf95",
+      "id": "a9748abde1c94b66aae5250bb9fc5503",
+      "isActive": true
+    },
+    {
+      "title": "Felix The Reaper",
+      "url": "https://store.epicgames.com/uk/p/felix-the-reaper-3f7e62",
+      "originalPrice": "225,00 ₴",
+      "startDate": "2025-11-06T16:00:00.000Z",
+      "endDate": "2025-11-13T16:00:00.000Z",
+      "platform": "Epic Games",
+      "id": "64dcb34ab8794d67a59bbb4bc805d4c6",
       "isActive": true
     }
   ],
   "steam": [
     {
-      "title": "Distant Space",
-      "url": "https://store.steampowered.com/app/569610",
-      "originalPrice": "26₴",
+      "title": "Bulb Boy",
+      "url": "https://store.steampowered.com/app/390290",
+      "originalPrice": "159₴",
       "endDate": null,
       "platform": "Steam",
-      "id": "569610",
+      "id": "390290",
+      "isActive": true
+    },
+    {
+      "title": "OneShift",
+      "url": "https://store.steampowered.com/app/862740",
+      "originalPrice": "124₴",
+      "endDate": null,
+      "platform": "Steam",
+      "id": "862740",
+      "isActive": true
+    },
+    {
+      "title": "Will Glow the Wisp",
+      "url": "https://store.steampowered.com/app/640890",
+      "originalPrice": "50₴",
+      "endDate": null,
+      "platform": "Steam",
+      "id": "640890",
       "isActive": true
     }
   ],
@@ -26,34 +54,34 @@
     "monthly": {
       "games": [
         {
-          "title": "Alan Wake 2 | PS5",
-          "storeUrl": "https://store.playstation.com/uk-ua/product/EP1464-PPSA02572_00-ALANWAKE20000000",
+          "title": "Stray | PS4, PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP2333-PPSA02101_00-STRAYSIEE0000000",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2025-11-04T16:48:11.719Z",
+          "endDate": "2025-12-02T11:09:19.627Z",
           "isActive": true
         },
         {
-          "title": "Goat Simulator 3 | PS4, PS5",
-          "storeUrl": "https://store.playstation.com/uk-ua/product/EP4837-CUSA46680_00-GOATSIM3FGPS4EUR",
+          "title": "EA Sports WRC 24 | PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP0006-PPSA06092_00-WRC2023PS5GAME00",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2025-11-04T16:48:12.401Z",
+          "endDate": "2025-12-02T11:09:20.258Z",
           "isActive": true
         },
         {
-          "title": "Cocoon | PS4, PS5",
-          "storeUrl": "https://store.playstation.com/uk-ua/product/EP2333-PPSA08766_00-COCOONSIEE000000",
+          "title": "Totally Accurate Battle Simulator | PS4, PS5",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP3316-PPSA06082_00-3954245925658330",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2025-11-04T16:48:12.879Z",
+          "endDate": "2025-12-02T11:09:20.954Z",
           "isActive": true
         }
       ],
       "article": {
-        "title": "PlayStation Plus Monthly Games for October: Alan Wake 2, Goat Simulator 3, Cocoon",
-        "url": "https://blog.playstation.com/2025/10/01/playstation-plus-monthly-games-for-october-alan-wake-2-goat-simulator-3-cocoon/",
-        "date": "2025-10-01T15:30:05.000Z"
+        "title": "PlayStation Plus Monthly Games for November: Stray, EA Sports WRC 24, Totally Accurate Battle Simulator",
+        "url": "https://blog.playstation.com/2025/10/29/playstation-plus-monthly-games-for-november-stray-ea-sports-wrc-24-totally-accurate-battle-simulator/",
+        "date": "2025-10-29T15:30:15.000Z"
       }
     },
     "catalog": {
@@ -130,5 +158,5 @@
       }
     }
   },
-  "lastUpdate": "2025-10-24T15:48:14.012Z"
+  "lastUpdate": "2025-11-09T11:09:23.923Z"
 }
