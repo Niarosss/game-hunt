@@ -17,8 +17,6 @@ export default async function handler(req, res) {
       });
     }
 
-    console.log("✅ Змінні середовища налаштовані");
-
     // Ініціалізація
     const epic = new EpicGames();
     const steam = new Steam();
@@ -58,12 +56,6 @@ export default async function handler(req, res) {
         });
       });
 
-    // Додайте це логування, щоб побачити сирі дані від PS Plus
-    console.log(
-      "\n🔍 Сирі дані PS Plus від psPlus.getAllGames():",
-      JSON.stringify(psPlusGamesResult, null, 2)
-    );
-
     // Гарантуємо правильну структуру для PS Plus
     const safePSPlusGames = {
       monthly: {
@@ -77,23 +69,11 @@ export default async function handler(req, res) {
       all: psPlusGamesResult?.all || [],
     };
 
-    // Додайте це логування, щоб побачити, що передається в storage.updateGames
-    console.log(
-      "\n🔍 safePSPlusGames перед storage.updateGames():",
-      JSON.stringify(safePSPlusGames, null, 2)
-    );
-
     // Оновлення даних
     const changes = await storage.updateGames(
       currentEpicGames.games || currentEpicGames,
       currentSteamGames.games || currentSteamGames,
       safePSPlusGames
-    );
-
-    // Додайте це логування, щоб побачити повний об'єкт змін
-    console.log(
-      "\n🔍 Повний об'єкт змін (changes):",
-      JSON.stringify(changes, null, 2)
     );
 
     console.log("\n📊 ЗМІНИ:");
@@ -102,64 +82,50 @@ export default async function handler(req, res) {
     console.log(
       `🆕 Нові PS Plus Monthly: ${
         changes.newPSPlus?.monthly?.games?.length || 0
-      }` // ВИПРАВЛЕНО
+      }`
     );
     console.log(
       `🆕 Нові PS Plus Catalog: ${
         changes.newPSPlus?.catalog?.games?.length || 0
-      }` // ВИПРАВЛЕНО
+      }`
     );
 
     let messagesSent = 0;
 
     // Epic Games
     if (changes.newEpic.length > 0) {
-      console.log("📤 Надсилаю повідомлення про нові Epic Games...");
       const activeNewEpic = changes.newEpic.filter((g) => g.isActive);
       if (activeNewEpic.length > 0) {
         if (await telegram.sendNewEpicGames(activeNewEpic)) {
           messagesSent++;
-          console.log("✅ Повідомлення Epic Games відправлено");
         }
       }
     }
 
     // Steam
     if (changes.newSteam.length > 0) {
-      console.log("📤 Надсилаю повідомлення про нові Steam ігри...");
       if (await telegram.sendNewSteamGames(changes.newSteam)) {
         messagesSent++;
-        console.log("✅ Повідомлення Steam відправлено");
       }
     }
 
     // PS Plus - розділяємо повідомлення
-    const newMonthlyGames = changes.newPSPlus?.monthly?.games || []; // ВИПРАВЛЕНО: отримуємо масив ігор
-    const newCatalogGames = changes.newPSPlus?.catalog?.games || []; // ВИПРАВЛЕНО: отримуємо масив ігор
-    const monthlyArticle = changes.newPSPlus?.monthly?.article || null; // ВИПРАВЛЕНО: отримуємо статтю з changes
-    const catalogArticle = changes.newPSPlus?.catalog?.article || null; // ВИПРАВЛЕНО: отримуємо статтю з changes
+    const newMonthlyGames = changes.newPSPlus?.monthly?.games || [];
+    const newCatalogGames = changes.newPSPlus?.catalog?.games || [];
+    const monthlyArticle = changes.newPSPlus?.monthly?.article || null;
+    const catalogArticle = changes.newPSPlus?.catalog?.article || null;
 
     // Місячні ігри - окреме повідомлення
     if (newMonthlyGames.length > 0) {
-      // ВИПРАВЛЕНО: перевіряємо довжину масиву ігор
-      console.log("📤 Надсилаю повідомлення про нові місячні ігри PS Plus...");
       if (await telegram.sendPSPlusMonthly(newMonthlyGames, monthlyArticle)) {
-        // ВИПРАВЛЕНО: передаємо масив ігор
         messagesSent++;
-        console.log("✅ Повідомлення про місячні ігри PS Plus відправлено");
       }
     }
 
     // Ігри каталогу - окреме повідомлення
     if (newCatalogGames.length > 0) {
-      // ВИПРАВЛЕНО: перевіряємо довжину масиву ігор
-      console.log(
-        "📤 Надсилаю повідомлення про нові ігри в каталозі PS Plus..."
-      );
       if (await telegram.sendPSPlusCatalog(newCatalogGames, catalogArticle)) {
-        // ВИПРАВЛЕНО: передаємо масив ігор
         messagesSent++;
-        console.log("✅ Повідомлення про ігри каталогу PS Plus відправлено");
       }
     }
 
@@ -174,8 +140,8 @@ export default async function handler(req, res) {
       changes: {
         newEpic: changes.newEpic.length,
         newSteam: changes.newSteam.length,
-        newPSPlusMonthly: newMonthlyGames.length, // ВИПРАВЛЕНО
-        newPSPlusCatalog: newCatalogGames.length, // ВИПРАВЛЕНО
+        newPSPlusMonthly: newMonthlyGames.length,
+        newPSPlusCatalog: newCatalogGames.length,
       },
       messagesSent,
       stats,
