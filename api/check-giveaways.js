@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     );
 
     // Отримання ігор з усіх платформ
-    const [currentEpicGames, currentSteamGames, psPlusGamesResult] = // Змінено назву змінної для уникнення конфлікту
+    const [currentEpicGames, currentSteamGames, psPlusGamesResult] =
       await Promise.allSettled([
         epic.getFreeGames(),
         steam.getFreeGames(),
@@ -67,14 +67,14 @@ export default async function handler(req, res) {
     // Гарантуємо правильну структуру для PS Plus
     const safePSPlusGames = {
       monthly: {
-        games: psPlusGamesResult?.monthly?.games || [], // Використовуємо psPlusGamesResult
-        article: psPlusGamesResult?.monthly?.article || null, // Використовуємо psPlusGamesResult
+        games: psPlusGamesResult?.monthly?.games || [],
+        article: psPlusGamesResult?.monthly?.article || null,
       },
       catalog: {
-        games: psPlusGamesResult?.catalog?.games || [], // Використовуємо psPlusGamesResult
-        article: psPlusGamesResult?.catalog?.article || null, // Використовуємо psPlusGamesResult
+        games: psPlusGamesResult?.catalog?.games || [],
+        article: psPlusGamesResult?.catalog?.article || null,
       },
-      all: psPlusGamesResult?.all || [], // Використовуємо psPlusGamesResult
+      all: psPlusGamesResult?.all || [],
     };
 
     // Додайте це логування, щоб побачити, що передається в storage.updateGames
@@ -100,10 +100,14 @@ export default async function handler(req, res) {
     console.log(`🆕 Нові Epic Games: ${changes.newEpic.length}`);
     console.log(`🆕 Нові Steam: ${changes.newSteam.length}`);
     console.log(
-      `🆕 Нові PS Plus Monthly: ${changes.newPSPlus?.monthly?.length || 0}`
+      `🆕 Нові PS Plus Monthly: ${
+        changes.newPSPlus?.monthly?.games?.length || 0
+      }` // ВИПРАВЛЕНО
     );
     console.log(
-      `🆕 Нові PS Plus Catalog: ${changes.newPSPlus?.catalog?.length || 0}`
+      `🆕 Нові PS Plus Catalog: ${
+        changes.newPSPlus?.catalog?.games?.length || 0
+      }` // ВИПРАВЛЕНО
     );
 
     let messagesSent = 0;
@@ -130,26 +134,30 @@ export default async function handler(req, res) {
     }
 
     // PS Plus - розділяємо повідомлення
-    const newMonthly = changes.newPSPlus?.monthly || [];
-    const newCatalog = changes.newPSPlus?.catalog || [];
-    const monthlyArticle = safePSPlusGames.monthly.article;
-    const catalogArticle = safePSPlusGames.catalog.article;
+    const newMonthlyGames = changes.newPSPlus?.monthly?.games || []; // ВИПРАВЛЕНО: отримуємо масив ігор
+    const newCatalogGames = changes.newPSPlus?.catalog?.games || []; // ВИПРАВЛЕНО: отримуємо масив ігор
+    const monthlyArticle = changes.newPSPlus?.monthly?.article || null; // ВИПРАВЛЕНО: отримуємо статтю з changes
+    const catalogArticle = changes.newPSPlus?.catalog?.article || null; // ВИПРАВЛЕНО: отримуємо статтю з changes
 
     // Місячні ігри - окреме повідомлення
-    if (newMonthly.length > 0) {
+    if (newMonthlyGames.length > 0) {
+      // ВИПРАВЛЕНО: перевіряємо довжину масиву ігор
       console.log("📤 Надсилаю повідомлення про нові місячні ігри PS Plus...");
-      if (await telegram.sendPSPlusMonthly(newMonthly, monthlyArticle)) {
+      if (await telegram.sendPSPlusMonthly(newMonthlyGames, monthlyArticle)) {
+        // ВИПРАВЛЕНО: передаємо масив ігор
         messagesSent++;
         console.log("✅ Повідомлення про місячні ігри PS Plus відправлено");
       }
     }
 
     // Ігри каталогу - окреме повідомлення
-    if (newCatalog.length > 0) {
+    if (newCatalogGames.length > 0) {
+      // ВИПРАВЛЕНО: перевіряємо довжину масиву ігор
       console.log(
         "📤 Надсилаю повідомлення про нові ігри в каталозі PS Plus..."
       );
-      if (await telegram.sendPSPlusCatalog(newCatalog, catalogArticle)) {
+      if (await telegram.sendPSPlusCatalog(newCatalogGames, catalogArticle)) {
+        // ВИПРАВЛЕНО: передаємо масив ігор
         messagesSent++;
         console.log("✅ Повідомлення про ігри каталогу PS Plus відправлено");
       }
@@ -166,8 +174,8 @@ export default async function handler(req, res) {
       changes: {
         newEpic: changes.newEpic.length,
         newSteam: changes.newSteam.length,
-        newPSPlusMonthly: newMonthly.length,
-        newPSPlusCatalog: newCatalog.length,
+        newPSPlusMonthly: newMonthlyGames.length, // ВИПРАВЛЕНО
+        newPSPlusCatalog: newCatalogGames.length, // ВИПРАВЛЕНО
       },
       messagesSent,
       stats,
