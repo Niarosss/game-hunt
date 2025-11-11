@@ -58,15 +58,9 @@ export default async function handler(req, res) {
 
     // Гарантуємо правильну структуру для PS Plus
     const safePSPlusGames = {
-      monthly: {
-        games: psPlusGamesResult?.monthly?.games || [],
-        article: psPlusGamesResult?.monthly?.article || null,
-      },
-      catalog: {
-        games: psPlusGamesResult?.catalog?.games || [],
-        article: psPlusGamesResult?.catalog?.article || null,
-      },
-      all: psPlusGamesResult?.all || [],
+      monthly: psPlusGamesResult?.monthly ?? { games: [], article: null },
+      catalog: psPlusGamesResult?.catalog ?? { games: [], article: null },
+      all: psPlusGamesResult?.all ?? [],
     };
 
     // Оновлення даних

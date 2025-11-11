@@ -23,21 +23,12 @@
   ],
   "steam": [
     {
-      "title": "Bulb Boy",
-      "url": "https://store.steampowered.com/app/390290",
-      "originalPrice": "159₴",
+      "title": "12 is Better Than 6",
+      "url": "https://store.steampowered.com/app/410110",
+      "originalPrice": "169₴",
       "endDate": null,
       "platform": "Steam",
-      "id": "390290",
-      "isActive": true
-    },
-    {
-      "title": "OneShift",
-      "url": "https://store.steampowered.com/app/862740",
-      "originalPrice": "124₴",
-      "endDate": null,
-      "platform": "Steam",
-      "id": "862740",
+      "id": "410110",
       "isActive": true
     },
     {
@@ -58,7 +49,7 @@
           "storeUrl": "https://store.playstation.com/uk-ua/product/EP2333-PPSA02101_00-STRAYSIEE0000000",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2025-12-02T11:09:19.627Z",
+          "endDate": "2025-11-18T17:07:59.743Z",
           "isActive": true
         },
         {
@@ -66,7 +57,7 @@
           "storeUrl": "https://store.playstation.com/uk-ua/product/EP0006-PPSA06092_00-WRC2023PS5GAME00",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2025-12-02T11:09:20.258Z",
+          "endDate": "2025-11-18T17:08:00.720Z",
           "isActive": true
         },
         {
@@ -74,7 +65,7 @@
           "storeUrl": "https://store.playstation.com/uk-ua/product/EP3316-PPSA06082_00-3954245925658330",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2025-12-02T11:09:20.954Z",
+          "endDate": "2025-11-18T17:08:01.877Z",
           "isActive": true
         }
       ],
@@ -112,7 +103,7 @@
         },
         {
           "title": "Yakuza: Like a Dragon | PS5, PS4",
-          "storeUrl": "https://store.playstation.com/uk-ua/product/EP0177-PPSA02384_00-LIKEADRAGON00000",
+          "storeUrl": "https://store.playstation.com/uk-ua/product/EP0177-CUSA16745_00-DLCYLADEU0000008",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
@@ -158,5 +149,5 @@
       }
     }
   },
-  "lastUpdate": "2025-11-09T11:09:23.923Z"
+  "lastUpdate": "2025-11-11T17:08:08.734Z"
 }
