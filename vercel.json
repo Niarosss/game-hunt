@@ -2,19 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/check-giveaways.js",
+      "src": "api/check-games.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/check-giveaways",
-      "dest": "/api/check-giveaways.js"
+      "src": "/check-games",
+      "dest": "/api/check-games.js"
     }
   ],
   "crons": [
     {
-      "path": "/check-giveaways",
+      "path": "/check-games",
       "schedule": "0 18 * * *"
     }
   ]
