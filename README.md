@@ -93,8 +93,8 @@ node test-all.js
 ```
 game-hunt/
 ├── 📁 api/                   # Vercel Serverless Function entry point
-│   └── 📄 check-giveaways.js  # Main handler for checking games
-├── 📁 config/                 # Configuration files
+│   └── 📄 check-games.js     # Main handler for checking games
+├── 📁 config/                # Configuration files
 │   └── 📄 settings.js        # Module toggles and bot settings
 ├── 📁 data/                  # Data storage
 │   └── 📄 games.json         # Stores current and previous game lists
@@ -102,9 +102,9 @@ game-hunt/
 │   ├── 📄 epic-games.js      # Logic for fetching Epic Games data
 │   ├── 📄 steam.js           # Logic for fetching Steam data
 │   ├── 📄 ps-plus.js         # Logic for fetching PlayStation Plus data
-│   ├── 📄 storage.js        # Handles reading/writing to games.json
-│   └── 📄 telegram.js       # Handles sending messages to Telegram
+│   ├── 📄 storage.js         # Handles reading/writing to games.json
+│   └── 📄 telegram.js        # Handles sending messages to Telegram
 ├── 📄 .env.example           # Example environment variables
-├── 📄 vercel.json             # Vercel deployment and cron job configuration
-└── 📄 package.json            # Project dependencies and scripts
+├── 📄 vercel.json            # Vercel deployment and cron job configuration
+└── 📄 package.json           # Project dependencies and scripts
 ```
