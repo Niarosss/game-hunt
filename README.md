@@ -2,7 +2,7 @@
 
 # Game Hunt Bot 🎮
 
-This repository contains a serverless bot that automatically monitors free game giveaways on popular platforms like **Epic Games**, **Steam**, and **PlayStation Plus**. It's designed to run on a schedule, check for new freebies, and send timely, well-formatted notifications to a Telegram channel, ensuring you never miss a deal.
+Serverless bot that automatically monitors free game giveaways on popular platforms like **Epic Games**, **Steam**, and **PlayStation Plus**. It's designed to run on a schedule, check for new freebies, and send timely, well-formatted notifications to a Telegram channel, ensuring you never miss a deal.
 
 ## Features
 
