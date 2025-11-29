@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 
         res.status(200).send("OK");
 
-        const workerUrl = `https://${process.env.VERCEL_URL}/api/check-games?reportChatId=${userChatId}`;
+        const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
         axios.get(workerUrl).catch((err) => {
           console.error("❌ Помилка при виклику check-games:", err.message);
           responseBot.sendMessage(
