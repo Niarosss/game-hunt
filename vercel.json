@@ -4,6 +4,10 @@
     {
       "src": "api/check-games.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "api/webhook.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [

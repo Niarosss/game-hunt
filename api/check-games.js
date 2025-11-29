@@ -6,6 +6,17 @@ import { Storage } from "../lib/storage.js";
 import settings from "../config/settings.js";
 
 export default async function handler(req, res) {
+  const { reportChatId } = req.query;
+  let reportBot;
+
+  if (reportChatId) {
+    reportBot = new TelegramBot(
+      process.env.TELEGRAM_BOT_TOKEN,
+      reportChatId,
+      settings.telegram
+    );
+  }
+
   try {
     console.log("🔄 Перевіряю нові роздачі...");
 
@@ -148,6 +159,24 @@ export default async function handler(req, res) {
 
     const stats = await storage.getStats();
 
+    // Формуємо фінальний звіт
+    const summary = `
+✅ **Перевірку завершено**
+
+**Знайдено нових:**
+- Epic Games: ${changes.newEpic.length}
+- Steam: ${changes.newSteam.length}
+- PS Plus Monthly: ${changes.newPSPlus?.monthly?.games?.length || 0}
+- PS Plus Catalog: ${changes.newPSPlus?.catalog?.games?.length || 0}
+
+**Надіслано повідомлень:** ${messagesSent}
+    `;
+
+    // Якщо є бот для звіту, відправляємо йому підсумок
+    if (reportBot) {
+      await reportBot.sendMessage(summary);
+    }
+
     return res.status(200).json({
       success: true,
       changes: {
@@ -160,7 +189,13 @@ export default async function handler(req, res) {
       stats,
     });
   } catch (error) {
+    const errorMessage = `❌ **Помилка під час перевірки**\n\n<pre>${error.message}</pre>`;
     console.error("❌ Критична помилка перевірки роздач:", error);
+
+    if (reportBot) {
+      await reportBot.sendMessage(errorMessage);
+    }
+
     return res.status(500).json({
       success: false,
       error: error.message,
