@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TelegramBot } from "../lib/telegram.js"; // Потрібен імпорт
+import { TelegramBot } from "../lib/telegram.js";
 
 export default async function handler(req, res) {
   if (req.query.secret !== process.env.TELEGRAM_WEBHOOK_SECRET) {
