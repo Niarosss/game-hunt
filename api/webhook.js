@@ -9,6 +9,11 @@ export default async function handler(req, res) {
     return res.status(401).send("Unauthorized");
   }
 
+  // Захист від порожнього тіла запиту
+  if (!req.body || !req.body.message) {
+    return res.status(200).send("OK");
+  }
+
   const { message } = req.body;
 
   if (message && message.text && message.text.toLowerCase() === "/check") {
@@ -16,56 +21,49 @@ export default async function handler(req, res) {
     const userChatId = String(message.chat.id);
 
     if (userChatId === adminChatId) {
-      try {
-        if (settings.telegram.log) {
-          console.log(`✅ Отримано команду /check. Запускаю перевірку...`);
-        }
+      if (settings.telegram.log) {
+        console.log(`✅ Отримано команду /check. Починаю спроби запуску...`);
+      }
 
-        const responseBot = new TelegramBot(
-          process.env.TELEGRAM_BOT_TOKEN,
-          userChatId
-        );
+      const responseBot = new TelegramBot(
+        process.env.TELEGRAM_BOT_TOKEN,
+        userChatId
+      );
+
+      const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
+      const maxRetries = 3;
+      let attempt = 0;
+      let success = false;
+
+      while (attempt < maxRetries && !success) {
+        attempt++;
+        try {
+          await axios.get(workerUrl, { timeout: 9000 });
+          success = true;
+          if (settings.telegram.log) {
+            console.log(`✅ Виклик check-games успішний (спроба ${attempt})`);
+          }
+        } catch (err) {
+          console.error(
+            `❌ Помилка при виклику check-games (спроба ${attempt}):`,
+            err.message
+          );
+          if (attempt < maxRetries) {
+            await delay(1000);
+          }
+        }
+      }
+
+      if (success) {
         await responseBot.sendMessage(
           "✅ Прийнято. Запускаю перевірку роздач..."
         );
-
-        res.status(200).send("OK");
-
-        (async () => {
-          const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
-          const maxRetries = 3;
-          let attempt = 0;
-
-          while (attempt < maxRetries) {
-            try {
-              await axios.get(workerUrl, { timeout: 8000 });
-              if (settings.telegram.log) {
-                console.log(
-                  `✅ Виклик check-games успішний (спроба ${attempt + 1})`
-                );
-              }
-              return;
-            } catch (err) {
-              attempt++;
-              console.error(
-                `❌ Помилка при виклику check-games (спроба ${attempt}):`,
-                err.message
-              );
-              if (attempt >= maxRetries) {
-                await responseBot.sendMessage(
-                  `❌ Не вдалося запустити перевірку після ${maxRetries} спроб. Остання помилка: ${err.message}`
-                );
-              } else {
-                await delay(1000);
-              }
-            }
-          }
-        })();
-      } catch (error) {
-        console.error("❌ Помилка в обробнику вебхука:", error.message);
-        if (!res.headersSent) {
-          res.status(500).send("Server Error");
-        }
+        res.status(200).send("OK: Worker started");
+      } else {
+        await responseBot.sendMessage(
+          `❌ Не вдалося запустити перевірку після ${maxRetries} спроб.`
+        );
+        res.status(200).send("Error: Worker failed to start");
       }
     } else {
       if (settings.telegram.log) {
