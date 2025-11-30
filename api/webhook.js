@@ -1,5 +1,8 @@
 import axios from "axios";
 import { TelegramBot } from "../lib/telegram.js";
+import settings from "../config/settings.js";
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default async function handler(req, res) {
   if (req.query.secret !== process.env.TELEGRAM_WEBHOOK_SECRET) {
@@ -14,7 +17,9 @@ export default async function handler(req, res) {
 
     if (userChatId === adminChatId) {
       try {
-        console.log(`✅ Отримано команду /check. Запускаю перевірку...`);
+        if (settings.telegram.log) {
+          console.log(`✅ Отримано команду /check. Запускаю перевірку...`);
+        }
 
         const responseBot = new TelegramBot(
           process.env.TELEGRAM_BOT_TOKEN,
@@ -26,13 +31,36 @@ export default async function handler(req, res) {
 
         res.status(200).send("OK");
 
-        const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
-        axios.get(workerUrl).catch((err) => {
-          console.error("❌ Помилка при виклику check-games:", err.message);
-          responseBot.sendMessage(
-            `❌ Не вдалося запустити перевірку. Помилка: ${err.message}`
-          );
-        });
+        (async () => {
+          const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
+          const maxRetries = 3;
+          let attempt = 0;
+
+          while (attempt < maxRetries) {
+            try {
+              await axios.get(workerUrl);
+              if (settings.telegram.log) {
+                console.log(
+                  `✅ Виклик check-games успішний (спроба ${attempt + 1})`
+                );
+              }
+              return;
+            } catch (err) {
+              attempt++;
+              console.error(
+                `❌ Помилка при виклику check-games (спроба ${attempt}):`,
+                err.message
+              );
+              if (attempt >= maxRetries) {
+                await responseBot.sendMessage(
+                  `❌ Не вдалося запустити перевірку після ${maxRetries} спроб. Остання помилка: ${err.message}`
+                );
+              } else {
+                await delay(1000);
+              }
+            }
+          }
+        })();
       } catch (error) {
         console.error("❌ Помилка в обробнику вебхука:", error.message);
         if (!res.headersSent) {
@@ -40,9 +68,11 @@ export default async function handler(req, res) {
         }
       }
     } else {
-      console.log(
-        `ℹ️ Команду /check отримано від неавторизованого користувача: ${userChatId}`
-      );
+      if (settings.telegram.log) {
+        console.log(
+          `ℹ️ Команду /check отримано від неавторизованого користувача: ${userChatId}`
+        );
+      }
       res.status(200).send("OK");
     }
   } else {
