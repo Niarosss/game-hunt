@@ -2,14 +2,11 @@ import axios from "axios";
 import { TelegramBot } from "../lib/telegram.js";
 import settings from "../config/settings.js";
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export default async function handler(req, res) {
   if (req.query.secret !== process.env.TELEGRAM_WEBHOOK_SECRET) {
     return res.status(401).send("Unauthorized");
   }
 
-  // Захист від порожнього тіла запиту
   if (!req.body || !req.body.message) {
     return res.status(200).send("OK");
   }
@@ -22,7 +19,7 @@ export default async function handler(req, res) {
 
     if (userChatId === adminChatId) {
       if (settings.telegram.log) {
-        console.log(`✅ Отримано команду /check. Починаю спроби запуску...`);
+        console.log(`✅ Отримано команду /check. Запускаю воркер...`);
       }
 
       const responseBot = new TelegramBot(
@@ -31,37 +28,24 @@ export default async function handler(req, res) {
       );
 
       const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
-      const maxRetries = 3;
-      let attempt = 0;
-      let success = false;
 
-      while (attempt < maxRetries && !success) {
-        attempt++;
-        try {
-          await axios.get(workerUrl, { timeout: 9000 });
-          success = true;
-          if (settings.telegram.log) {
-            console.log(`✅ Виклик check-games успішний (спроба ${attempt})`);
-          }
-        } catch (err) {
-          console.error(
-            `❌ Помилка при виклику check-games (спроба ${attempt}):`,
-            err.message
-          );
-          if (attempt < maxRetries) {
-            await delay(1000);
-          }
+      try {
+        await axios.get(workerUrl, { timeout: 25000 });
+
+        if (settings.telegram.log) {
+          console.log(`✅ Воркер check-games успішно запущено.`);
         }
-      }
-
-      if (success) {
         await responseBot.sendMessage(
           "✅ Прийнято. Запускаю перевірку роздач..."
         );
         res.status(200).send("OK: Worker started");
-      } else {
+      } catch (err) {
+        console.error(
+          "❌ Не вдалося запустити воркер check-games:",
+          err.message
+        );
         await responseBot.sendMessage(
-          `❌ Не вдалося запустити перевірку після ${maxRetries} спроб.`
+          `❌ Не вдалося запустити перевірку. Помилка: ${err.message}`
         );
         res.status(200).send("Error: Worker failed to start");
       }
@@ -74,6 +58,7 @@ export default async function handler(req, res) {
       res.status(200).send("OK");
     }
   } else {
+    // Це не команда /check
     res.status(200).send("OK");
   }
 }
