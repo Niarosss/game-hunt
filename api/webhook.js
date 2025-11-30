@@ -38,7 +38,7 @@ export default async function handler(req, res) {
 
           while (attempt < maxRetries) {
             try {
-              await axios.get(workerUrl, { timeout: 20000 });
+              await axios.get(workerUrl, { timeout: 8000 });
               if (settings.telegram.log) {
                 console.log(
                   `✅ Виклик check-games успішний (спроба ${attempt + 1})`
