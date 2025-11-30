@@ -18,36 +18,49 @@ export default async function handler(req, res) {
     const userChatId = String(message.chat.id);
 
     if (userChatId === adminChatId) {
-      if (settings.telegram.log) {
-        console.log(`✅ Отримано команду /check. Запускаю воркер...`);
-      }
-
-      const responseBot = new TelegramBot(
-        process.env.TELEGRAM_BOT_TOKEN,
-        userChatId
-      );
-
-      const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
-
       try {
-        await axios.get(workerUrl, { timeout: 25000 });
-
         if (settings.telegram.log) {
-          console.log(`✅ Воркер check-games успішно запущено.`);
+          console.log(
+            `✅ Отримано команду /check. Відправляю відповідь і запускаю воркер...`
+          );
         }
+
+        const responseBot = new TelegramBot(
+          process.env.TELEGRAM_BOT_TOKEN,
+          userChatId
+        );
+
         await responseBot.sendMessage(
           "✅ Прийнято. Запускаю перевірку роздач..."
         );
-        res.status(200).send("OK: Worker started");
-      } catch (err) {
+
+        res.status(200).send("OK");
+
+        (async () => {
+          const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
+          try {
+            await axios.get(workerUrl, { timeout: 25000 });
+            if (settings.telegram.log) {
+              console.log(`✅ Фоновий запуск воркера check-games успішний.`);
+            }
+          } catch (err) {
+            console.error(
+              "❌ Помилка у фоновому запуску воркера check-games:",
+              err.message
+            );
+            await responseBot.sendMessage(
+              `❌ Не вдалося запустити перевірку у фоні. Помилка: ${err.message}`
+            );
+          }
+        })();
+      } catch (error) {
         console.error(
-          "❌ Не вдалося запустити воркер check-games:",
-          err.message
+          "❌ Критична помилка в обробнику вебхука:",
+          error.message
         );
-        await responseBot.sendMessage(
-          `❌ Не вдалося запустити перевірку. Помилка: ${err.message}`
-        );
-        res.status(200).send("Error: Worker failed to start");
+        if (!res.headersSent) {
+          res.status(500).send("Server Error");
+        }
       }
     } else {
       if (settings.telegram.log) {
@@ -58,7 +71,6 @@ export default async function handler(req, res) {
       res.status(200).send("OK");
     }
   } else {
-    // Це не команда /check
     res.status(200).send("OK");
   }
 }
