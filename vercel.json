@@ -13,6 +13,9 @@
   "functions": {
     "api/check-games.js": {
       "maxDuration": 60
+    },
+    "api/webhook.js": {
+      "maxDuration": 30
     }
   },
   "routes": [
