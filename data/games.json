@@ -1,15 +1,164 @@
 {
-  "epic": [],
+  "epic": [
+    {
+      "title": "The Jackbox Party Pack 4",
+      "url": "https://store.epicgames.com/uk/p/jackbox-party-pack-4",
+      "originalPrice": "329,00 ₴",
+      "endDate": "2025-12-11T16:00:00.000Z",
+      "platform": "Epic Games",
+      "id": "da763a33956745888bea060de7ecf059",
+      "isActive": true
+    },
+    {
+      "title": "The Darkside Detective",
+      "url": "https://store.epicgames.com/uk/p/the-darkside-detective-02fd5a",
+      "originalPrice": "275,00 ₴",
+      "endDate": "2025-12-11T16:00:00.000Z",
+      "platform": "Epic Games",
+      "id": "537f9c03801d45c293b2a75eecd7170c",
+      "isActive": true
+    }
+  ],
   "steam": [],
   "psPlus": {
     "monthly": {
-      "games": [],
-      "article": {}
+      "games": [
+        {
+          "title": "LEGO Horizon Adventures | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
+          "platform": "PS Plus",
+          "type": "monthly",
+          "endDate": "2026-01-05T23:00:13.048Z",
+          "isActive": true
+        },
+        {
+          "title": "Killing Floor 3 | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP0114-PPSA08427_00-KF3GAME000000001",
+          "platform": "PS Plus",
+          "type": "monthly",
+          "endDate": "2026-01-05T23:00:13.927Z",
+          "isActive": true
+        },
+        {
+          "title": "The Outlast Trials | PS4, PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP4467-PPSA05004_00-3353269409144813",
+          "platform": "PS Plus",
+          "type": "monthly",
+          "endDate": "2026-01-05T23:00:14.918Z",
+          "isActive": true
+        },
+        {
+          "title": "Synduality Echo of Ada | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001004",
+          "platform": "PS Plus",
+          "type": "monthly",
+          "endDate": "2026-01-05T23:00:15.902Z",
+          "isActive": true
+        },
+        {
+          "title": "Neon White | PS4, PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP2333-PPSA09865_00-NEONWHITESIEE000",
+          "platform": "PS Plus",
+          "type": "monthly",
+          "endDate": "2026-01-05T23:00:16.985Z",
+          "isActive": true
+        }
+      ],
+      "article": {
+        "title": "PlayStation Plus Monthly Games for December: LEGO Horizon Adventures, Killing Floor 3, The Outlast Trials, more",
+        "url": "https://blog.playstation.com/2025/11/26/playstation-plus-monthly-games-for-december-lego-horizon-adventures-killing-floor-3-the-outlast-trials-more/",
+        "date": "2025-11-26T16:30:11.000Z"
+      }
     },
     "catalog": {
-      "games": [],
-      "article": {}
+      "games": [
+        {
+          "title": "Red Dead Redemption | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP1004-CUSA08519_00-REDEMPTIONFULL02",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Grand Theft Auto V* | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP1004-CUSA00411_00-GTAVDIGITALDOWNL",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Pacific Drive | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP6847-PPSA17476_00-00000000000PS5EU",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Still Wakes the Deep | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP7072-PPSA07905_00-STILLWAKES00DEEP",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Insurgency: Sandstorm | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP4133-PPSA09741_00-INSURGENCYSANDST",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Thank Goodness You’re Here! | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP3825-PPSA15434_00-0201844545004247",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "The Talos Principle 2 | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP3643-PPSA05888_00-1760628099831063",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Monster Jam Showdown | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP4356-PPSA16159_00-MONSTERJAMGAME00",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "MotoGP 25 | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP4356-PPSA25319_00-MOTOGP25FULLGAME",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        },
+        {
+          "title": "Tomb Raider: Anniversary | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/UP8489-PPSA27718_00-0618689374962365",
+          "platform": "PS Plus",
+          "type": "catalog",
+          "endDate": null,
+          "isActive": true
+        }
+      ],
+      "article": {
+        "title": "PlayStation Plus Game Catalog for November: Grand Theft Auto V, Red Dead Redemption, Pacific Drive, Still Wakes the Deep and more",
+        "url": "https://blog.playstation.com/2025/11/12/playstation-plus-game-catalog-for-november-grand-theft-auto-v-red-dead-redemption-pacific-drive-still-wakes-the-deep-and-more/",
+        "date": "2025-11-12T16:30:08.000Z"
+      }
     }
   },
-  "lastUpdate": ""
+  "lastUpdate": "2025-12-04T23:00:23.985Z"
 }

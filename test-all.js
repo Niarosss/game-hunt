@@ -259,38 +259,42 @@ async function testAllPlatforms() {
       if (newEpicGames.length > 0) {
         console.log("\n📨 Повідомлення для нових Epic Games:");
         console.log("──────────────────────────────────");
-        const epicMessage = telegram.formatNewEpicGamesMessage(
-          newEpicGames.slice(0, 2)
-        );
+        const epicMessage = telegram.formatGamesMessage({
+          source: "epic",
+          games: newEpicGames.slice(0, 2),
+        });
         console.log(epicMessage);
       }
 
       if (newSteamGames.length > 0) {
         console.log("\n📨 Повідомлення для нових Steam ігор:");
         console.log("─────────────────────────────────");
-        const steamMessage = telegram.formatNewSteamGamesMessage(
-          newSteamGames.slice(0, 2)
-        );
+        const steamMessage = telegram.formatGamesMessage({
+          source: "steam",
+          games: newSteamGames.slice(0, 2),
+        });
         console.log(steamMessage);
       }
 
       if (newMonthlyGames.length > 0) {
         console.log("\n📨 Повідомлення для нових місячних ігор PS Plus:");
         console.log("───────────────────────────────────────────────");
-        const monthlyMessage = telegram.formatPSPlusMonthlyMessage(
-          newMonthlyGames,
-          psPlusData.monthly.article
-        );
+        const monthlyMessage = telegram.formatGamesMessage({
+          source: "psPlusMonthly",
+          games: newMonthlyGames,
+          article: psPlusData.monthly.article,
+        });
         console.log(monthlyMessage);
       }
 
       if (newCatalogGames.length > 0) {
         console.log("\n📨 Повідомлення для нових ігор каталогу PS Plus:");
         console.log("───────────────────────────────────────────────");
-        const catalogMessage = telegram.formatPSPlusCatalogMessage(
-          newCatalogGames.slice(0, 3),
-          psPlusData.catalog.article
-        );
+        const catalogMessage = telegram.formatGamesMessage({
+          source: "psPlusCatalog",
+          games: newCatalogGames.slice(0, 3),
+          article: psPlusData.catalog.article,
+        });
         console.log(catalogMessage);
       }
 
