@@ -49,7 +49,7 @@ async function testAllPlatforms() {
           console.log(`  ${index + 1}. ${game.title}`);
           console.log(
             `     💵 Ціна: ${
-              game.hasMeaningfulPrice
+              game.originalPrice
                 ? `${game.originalPrice} → БЕЗКОШТОВНО`
                 : "БЕЗКОШТОВНО"
             }`
