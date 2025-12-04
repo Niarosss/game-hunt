@@ -1,8 +1,8 @@
 import { EpicGames } from "../lib/epic-games.js";
-import { Steam } from "../lib.steam.js";
-import { PSPlus } from "../lib.ps-plus.js";
-import { TelegramBot } from "../lib.telegram.js";
-import { Storage } from "../lib.storage.js";
+import { Steam } from "../lib/steam.js";
+import { PSPlus } from "../lib/ps-plus.js";
+import { TelegramBot } from "../lib/telegram.js";
+import { Storage } from "../lib/storage.js";
 import settings from "../config/settings.js";
 
 export default async function handler(req, res) {
