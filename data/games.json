@@ -28,7 +28,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-05T23:00:13.048Z",
+          "endDate": "2026-01-06T18:30:44.267Z",
           "isActive": true
         },
         {
@@ -36,7 +36,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP0114-PPSA08427_00-KF3GAME000000001",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-05T23:00:13.927Z",
+          "endDate": "2026-01-06T18:30:45.253Z",
           "isActive": true
         },
         {
@@ -44,15 +44,15 @@
           "url": "https://store.playstation.com/uk-ua/product/EP4467-PPSA05004_00-3353269409144813",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-05T23:00:14.918Z",
+          "endDate": "2026-01-06T18:30:46.383Z",
           "isActive": true
         },
         {
           "title": "Synduality Echo of Ada | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001004",
+          "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001005",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-05T23:00:15.902Z",
+          "endDate": "2026-01-06T18:30:47.259Z",
           "isActive": true
         },
         {
@@ -60,7 +60,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP2333-PPSA09865_00-NEONWHITESIEE000",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-05T23:00:16.985Z",
+          "endDate": "2026-01-06T18:30:48.311Z",
           "isActive": true
         }
       ],
@@ -160,5 +160,5 @@
       }
     }
   },
-  "lastUpdate": "2025-12-04T23:00:23.985Z"
+  "lastUpdate": "2025-12-06T18:30:52.288Z"
 }
