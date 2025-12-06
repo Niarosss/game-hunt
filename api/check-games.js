@@ -7,15 +7,14 @@ import settings from "../config/settings.js";
 
 export default async function handler(req, res) {
   const { reportChatId } = req.query;
-  let reportBot;
 
-  if (reportChatId) {
-    reportBot = new TelegramBot(
+  let reportBot =
+    reportChatId &&
+    new TelegramBot(
       process.env.TELEGRAM_BOT_TOKEN,
       reportChatId,
       settings.telegram
     );
-  }
 
   try {
     console.log("🔄 Перевіряю нові роздачі...");
@@ -31,75 +30,71 @@ export default async function handler(req, res) {
       settings.telegram
     );
 
-    const tasks = [];
-    if (settings.modules.epic) tasks.push(new EpicGames().getFreeGames());
-    if (settings.modules.steam) tasks.push(new Steam().getFreeGames());
-    if (settings.modules.psPlus) tasks.push(new PSPlus().getAllGames());
+    const taskDefinitions = [
+      settings.modules.epic && {
+        key: "epic",
+        task: new EpicGames().getFreeGames(),
+      },
+      settings.modules.steam && {
+        key: "steam",
+        task: new Steam().getFreeGames(),
+      },
+      settings.modules.psPlus && {
+        key: "psPlus",
+        task: new PSPlus().getAllGames(),
+      },
+    ].filter(Boolean);
 
-    const results = await Promise.allSettled(tasks);
+    const results = await Promise.allSettled(
+      taskDefinitions.map((t) => t.task)
+    );
 
-    const getResult = (platformName) => {
-      const index = Object.keys(settings.modules)
-        .filter((k) => settings.modules[k])
-        .indexOf(platformName);
-      if (index === -1) {
-        if (platformName === "psPlus")
-          return {
-            monthly: { games: [], article: null },
-            catalog: { games: [], article: null },
-            all: [],
-          };
-        return [];
+    const platformData = {};
+
+    taskDefinitions.forEach((def, index) => {
+      const res = results[index];
+
+      if (res.status === "fulfilled") {
+        platformData[def.key] = res.value;
+        return;
       }
-      const result = results[index];
-      if (result.status === "rejected") {
-        console.log(
-          `❌ Помилка отримання ${platformName} ігор:`,
-          result.reason.message
-        );
-        if (platformName === "psPlus") {
-          return {
-            monthly: { games: [], article: null },
-            catalog: { games: [], article: null },
-            all: [],
-          };
-        }
-        return [];
-      }
-      return result.value;
-    };
 
-    const currentEpicGames = settings.modules.epic ? getResult("epic") : [];
-    const currentSteamGames = settings.modules.steam ? getResult("steam") : [];
-    const psPlusGamesResult = settings.modules.psPlus
-      ? getResult("psPlus")
-      : {
+      console.log(`❌ Помилка ${def.key}:`, res.reason.message);
+
+      if (def.key === "psPlus") {
+        platformData.psPlus = {
           monthly: { games: [], article: null },
           catalog: { games: [], article: null },
-          all: [],
         };
+      } else {
+        platformData[def.key] = [];
+      }
+    });
 
-    // Оновлення даних
-    const changes = await storage.updateGames(
-      currentEpicGames,
-      currentSteamGames,
-      psPlusGamesResult
-    );
+    const epicGames = platformData.epic || [];
+    const steamGames = platformData.steam || [];
+
+    const psPlus = platformData.psPlus || {
+      monthly: { games: [], article: null },
+      catalog: { games: [], article: null },
+    };
+
+    const changes = await storage.updateGames(epicGames, steamGames, psPlus);
 
     if (settings.telegram.log) {
       console.log("\n📊 ЗМІНИ:");
       if (settings.modules.epic)
-        console.log(`🆕 Нові Epic Games: ${changes.newEpic.length}`);
+        console.log(`🆕 Epic Games: ${changes.newEpic.length}`);
       if (settings.modules.steam)
-        console.log(`🆕 Нові Steam: ${changes.newSteam.length}`);
+        console.log(`🆕 Steam: ${changes.newSteam.length}`);
       if (settings.modules.psPlus) {
         console.log(
-          `🆕 Нові PS Plus Monthly: ${
+          `🆕 PS Plus Monthly: ${
             changes.newPSPlus?.monthly?.games?.length || 0
           }`
         );
         console.log(
-          `🆕 Нові PS Plus Catalog: ${
+          `🆕 PS Plus Catalog: ${
             changes.newPSPlus?.catalog?.games?.length || 0
           }`
         );
@@ -108,54 +103,31 @@ export default async function handler(req, res) {
 
     let messagesSent = 0;
 
-    // Epic Games
-    if (settings.modules.epic && changes.newEpic.length > 0) {
-      const activeNewEpic = changes.newEpic.filter((g) => g.isActive);
-      if (activeNewEpic.length > 0) {
-        if (
-          await telegram.sendGames({ source: "epic", games: activeNewEpic })
-        ) {
-          messagesSent++;
-        }
-      }
-    }
+    const sendPlan = [
+      settings.modules.epic && {
+        source: "epic",
+        games: changes.newEpic?.filter((g) => g.isActive) ?? [],
+      },
+      settings.modules.steam && {
+        source: "steam",
+        games: changes.newSteam ?? [],
+      },
+      settings.modules.psPlus && {
+        source: "psPlusMonthly",
+        games: changes.newPSPlus?.monthly?.games ?? [],
+        article: changes.newPSPlus?.monthly?.article,
+      },
+      settings.modules.psPlus && {
+        source: "psPlusCatalog",
+        games: changes.newPSPlus?.catalog?.games ?? [],
+        article: changes.newPSPlus?.catalog?.article,
+      },
+    ].filter(Boolean);
 
-    // Steam
-    if (settings.modules.steam && changes.newSteam.length > 0) {
-      if (
-        await telegram.sendGames({ source: "steam", games: changes.newSteam })
-      ) {
-        messagesSent++;
-      }
-    }
-
-    // PS Plus
-    if (settings.modules.psPlus) {
-      const newMonthlyGames = changes.newPSPlus?.monthly?.games || [];
-      const newCatalogGames = changes.newPSPlus?.catalog?.games || [];
-
-      if (newMonthlyGames.length > 0) {
-        if (
-          await telegram.sendGames({
-            source: "psPlusMonthly",
-            games: newMonthlyGames,
-            article: changes.newPSPlus.monthly.article,
-          })
-        ) {
-          messagesSent++;
-        }
-      }
-
-      if (newCatalogGames.length > 0) {
-        if (
-          await telegram.sendGames({
-            source: "psPlusCatalog",
-            games: newCatalogGames,
-            article: changes.newPSPlus.catalog.article,
-          })
-        ) {
-          messagesSent++;
-        }
+    for (const item of sendPlan) {
+      if (item.games.length > 0) {
+        const sent = await telegram.sendGames(item);
+        if (sent) messagesSent++;
       }
     }
 
@@ -165,12 +137,11 @@ export default async function handler(req, res) {
 
     const stats = await storage.getStats();
 
-    // Якщо є бот для звіту, відправляємо йому підсумок
     if (reportBot) {
       await reportBot.sendSummaryReport({ changes, messagesSent });
     }
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       changes: {
         newEpic: changes.newEpic.length,
@@ -182,13 +153,13 @@ export default async function handler(req, res) {
       stats,
     });
   } catch (error) {
-    console.error("❌ Критична помилка перевірки роздач:", error);
+    console.error("❌ Критична помилка:", error);
 
     if (reportBot) {
       await reportBot.sendErrorReport(error);
     }
 
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
       error: error.message,
     });
