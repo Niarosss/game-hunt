@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       );
 
       await responseBot.sendMessage(
-        "✅ Прийнято. Запускаю перевірку роздач..."
+        "🫡 Прийнято.\nЗапускаю перевірку роздач..."
       );
 
       const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
