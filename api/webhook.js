@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TelegramBot } from "../lib/telegram.js";
+import { Storage } from "../lib/storage.js";
 import settings from "../config/settings.js";
 
 export default async function handler(req, res) {
