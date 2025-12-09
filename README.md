@@ -8,11 +8,15 @@ Serverless bot that automatically monitors free game giveaways on popular platfo
 
 - **Multi-Platform Monitoring**: Tracks free games on Epic Games, Steam, and PlayStation Plus (both Monthly and Catalog games).
 - **Telegram Notifications**: Sends clean, formatted messages to a specified Telegram channel for new game announcements.
-- **Manual Trigger**: Ability to start a game check instantly via a `/check` command in Telegram (admin only).
+- **Admin Commands**: Allows the administrator to control the bot with Telegram commands:
+  - `/check`: Instantly triggers a check for new free game giveaways.
+  - `/stats`: Displays detailed statistics about the number of games stored in the database.
+  - `/help`: Shows a help message about the bot's capabilities and available commands.
 - **Persistent Storage**: Utilizes **Upstash (Redis)** for persistent storage in production and a local JSON file for development, preventing duplicate notifications.
 - **Serverless Deployment**: Built to run as a cost-effective serverless function on platforms like Vercel.
 - **Scheduled Checks**: Uses cron jobs (configured in `vercel.json`) to automate periodic checks for new giveaways.
 - **Highly Configurable**: Easily enable or disable platform modules and tweak bot behavior through a central settings file.
+- **Improved Messaging Architecture**: All message formatting and sending logic is centralized in the `telegram.js` module, making the code cleaner and easier to maintain.
 
 ## Technologies Used
 
@@ -65,7 +69,7 @@ Serverless bot that automatically monitors free game giveaways on popular platfo
     # --- Webhook for manual triggering (optional) ---
     # A long, random string to secure your webhook endpoint
     TELEGRAM_WEBHOOK_SECRET="YOUR_SUPER_SECRET_RANDOM_STRING"
-    # Your personal Telegram User ID to restrict the /check command
+    # Your personal Telegram User ID to restrict admin commands
     TELEGRAM_ADMIN_CHAT_ID="YOUR_PERSONAL_TELEGRAM_ID"
     # The Vercel project URL (e.g., your-project-name.vercel.app)
     VERCEL_URL="your-project-name.vercel.app"
@@ -73,6 +77,18 @@ Serverless bot that automatically monitors free game giveaways on popular platfo
 
 2.  **Bot Settings**: Open `config/settings.js` to enable/disable specific platform modules and configure other bot options.
 3.  **Cron Schedule**: Adjust the schedule in `vercel.json` to define how often the check should run. The default is `0 18 * * *` (every day at 18:00 UTC).
+
+### Setting Up Bot Commands
+
+To make the `/check`, `/stats`, and `/help` commands appear in the Telegram interface (when typing `/` in the chat), you need to register them via the Telegram Bot API.
+
+1.  **Ensure** your `TELEGRAM_BOT_TOKEN` environment variable is set in your `.env` (or `.env.local`) file.
+2.  Open your terminal in the project root directory (`game-hunt/`).
+3.  Run the dedicated script to set up the commands:
+    ```bash
+    node scripts/setup-commands.js
+    ```
+4.  You should see a success message. To see the changes reflected, you might need to restart your Telegram client.
 
 ### Local Testing
 
@@ -98,7 +114,7 @@ node test-all.js
 2.  Import the project on [Vercel](https://vercel.com) and connect a Vercel KV (Upstash Redis) storage.
 3.  Add the environment variables from your `.env` file to the Vercel project settings.
 4.  Deploy. Vercel will automatically set up the serverless function and the cron job based on your `vercel.json` configuration.
-5.  **Set Up Telegram Webhook (Optional)**: To enable manual checks via the `/check` command, you need to register the webhook endpoint with Telegram. Open the following URL in your browser, replacing the placeholders with your values:
+5.  **Set Up Telegram Webhook (Optional)**: To enable manual checks and admin commands, you need to register the webhook endpoint with Telegram. Open the following URL in your browser, replacing the placeholders with your values:
     ```
     https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook?url=https://<VERCEL_URL>/api/webhook?secret=<TELEGRAM_WEBHOOK_SECRET>
     ```
@@ -122,6 +138,8 @@ game-hunt/
 │   ├── 📄 storage.js        # Handles reading/writing to KV or local JSON
 │   ├── 📄 kv.js              # Upstash Redis client configuration
 │   └── 📄 telegram.js       # Handles sending messages to Telegram
+├── 📁 scripts/                # Scripts for bot setup
+│   └── 📄 setup-commands.js  # Script for registering bot commands with Telegram
 ├── 📄 test-all.js            # Comprehensive local test script
 ├── 📄 .env.example           # Example environment variables
 ├── 📄 vercel.json             # Vercel deployment and cron job configuration
