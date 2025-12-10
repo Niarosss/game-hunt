@@ -8,114 +8,51 @@ export default async function handler(req, res) {
     return res.status(401).send("Unauthorized");
   }
 
-  if (!req.body || !req.body.message) {
-    return res.status(200).send("OK");
-  }
+  const message = req.body?.message;
+  const text = message?.text?.toLowerCase();
+  if (!text) return res.status(200).send("OK");
 
-  const { message } = req.body;
+  const adminChatId = String(process.env.TELEGRAM_ADMIN_CHAT_ID);
+  const userChatId = String(message.chat.id);
 
-  if (message && message.text) {
-    const command = message.text.toLowerCase();
-    const adminChatId = String(process.env.TELEGRAM_ADMIN_CHAT_ID);
-    const userChatId = String(message.chat.id);
+  if (userChatId !== adminChatId) return res.status(200).send("OK");
 
-    if (userChatId === adminChatId) {
-      const responseBot = new TelegramBot(
-        process.env.TELEGRAM_BOT_TOKEN,
-        userChatId,
-        settings.telegram
-      );
+  const bot = new TelegramBot(
+    process.env.TELEGRAM_BOT_TOKEN,
+    userChatId,
+    settings.telegram
+  );
 
-      if (command === "/check") {
-        try {
-          if (settings.telegram.log) {
-            console.log(
-              `✅ Отримано команду /check. Відправляю попереднє повідомлення...`
-            );
-          }
-          await responseBot.sendMessage(
-            "✅ Прийнято. Запускаю перевірку роздач..."
-          );
-          res.status(200).send("OK");
-
-          (async () => {
-            const workerUrl = `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`;
-            try {
-              await axios.get(workerUrl, { timeout: 25000 });
-              if (settings.telegram.log) {
-                console.log(`✅ Фоновий запуск воркера check-games успішний.`);
-              }
-            } catch (err) {
-              console.error(
-                "❌ Помилка у фоновому запуску воркера check-games:",
-                err.message
-              );
-              await responseBot.sendMessage(
-                `❌ Не вдалося запустити перевірку у фоні. Помилка: ${err.message}`
-              );
-            }
-          })();
-        } catch (error) {
-          console.error(
-            "❌ Критична помилка в обробнику /check:",
-            error.message
-          );
-          if (!res.headersSent) {
-            res.status(500).send("Server Error");
-          }
-        }
-      } else if (command === "/stats") {
-        try {
-          if (settings.telegram.log) {
-            console.log(`📊 Отримано команду /stats. Генерую звіт...`);
-          }
-          const storage = new Storage();
-          const stats = await storage.getStats();
-          await responseBot.sendStatsReport(stats);
-          res.status(200).send("OK: Stats sent");
-        } catch (error) {
-          console.error(
-            "❌ Помилка при обробці команди /stats:",
-            error.message
-          );
-          await responseBot.sendMessage(
-            `❌ Не вдалося отримати статистику. Помилка: ${error.message}`
-          );
-          if (!res.headersSent) {
-            res.status(500).send("Server Error for /stats");
-          }
-        }
-      } else if (command === "/help") {
-        try {
-          if (settings.telegram.log) {
-            console.log(`❔ Отримано команду /help. Відправляю довідку...`);
-          }
-          await responseBot.sendHelpMessage();
-          res.status(200).send("OK: Help message sent");
-        } catch (error) {
-          console.error("❌ Помилка при обробці команди /help:", error.message);
-          await responseBot.sendMessage(
-            `❌ Не вдалося надіслати довідку. Помилка: ${error.message}`
-          );
-          if (!res.headersSent) {
-            res.status(500).send("Server Error for /help");
-          }
-        }
-      } else {
-        if (settings.telegram.log) {
-          console.log(`ℹ️ Отримано невідому команду: ${command}`);
-        }
-        res.status(200).send("OK: Unknown command");
-      }
-    } else {
-      if (settings.telegram.log) {
-        console.log(
-          `ℹ️ Команду ${command} отримано від неавторизованого користувача: ${userChatId}`
+  const commands = {
+    "/check": async () => {
+      await bot.sendMessage("<b>Прийнято</b> 🫡\n\nЗапускаю перевірку...");
+      try {
+        await axios.get(
+          `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`,
+          { timeout: 25000 }
         );
+        return "OK: Worker started";
+      } catch (e) {
+        await bot.sendMessage(
+          "❌ Не вдалося запустити перевірку: " + e.message
+        );
+        return "Error: Worker failed to start";
       }
-      res.status(200).send("OK");
-    }
-  } else {
-    res.status(200).send("OK");
-  }
+    },
+    "/stats": async () => {
+      const storage = new Storage();
+      const stats = await storage.getStats();
+      await bot.sendStatsReport(stats);
+      return "OK: Stats sent";
+    },
+    "/help": async () => {
+      await bot.sendHelpMessage();
+      return "OK: Help sent";
+    },
+  };
+
+  const handlerFn = commands[text];
+  const result = handlerFn ? await handlerFn() : "OK: Unknown command";
+
+  return res.status(200).send(result);
 }
