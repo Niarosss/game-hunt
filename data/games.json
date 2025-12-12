@@ -1,25 +1,35 @@
 {
   "epic": [
     {
-      "title": "The Jackbox Party Pack 4",
-      "url": "https://store.epicgames.com/uk/p/jackbox-party-pack-4",
-      "originalPrice": "329,00 ₴",
-      "endDate": "2025-12-11T16:00:00.000Z",
+      "title": "Hogwarts Legacy",
+      "url": "https://store.epicgames.com/uk/p/hogwarts-legacy",
+      "originalPrice": "0",
+      "endDate": "2025-12-18T16:00:00.000Z",
       "platform": "Epic Games",
-      "id": "da763a33956745888bea060de7ecf059",
-      "isActive": true
-    },
-    {
-      "title": "The Darkside Detective",
-      "url": "https://store.epicgames.com/uk/p/the-darkside-detective-02fd5a",
-      "originalPrice": "275,00 ₴",
-      "endDate": "2025-12-11T16:00:00.000Z",
-      "platform": "Epic Games",
-      "id": "537f9c03801d45c293b2a75eecd7170c",
+      "id": "e4f007a25ee8426e97c16e994f6127e9",
       "isActive": true
     }
   ],
-  "steam": [],
+  "steam": [
+    {
+      "title": "Black Desert",
+      "url": "https://store.steampowered.com/app/582660",
+      "originalPrice": "149₴",
+      "endDate": null,
+      "platform": "Steam",
+      "id": "582660",
+      "isActive": true
+    },
+    {
+      "title": "Just Ignore Them",
+      "url": "https://store.steampowered.com/app/561770",
+      "originalPrice": "99₴",
+      "endDate": null,
+      "platform": "Steam",
+      "id": "561770",
+      "isActive": true
+    }
+  ],
   "psPlus": {
     "monthly": {
       "games": [
@@ -28,7 +38,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T18:30:44.267Z",
+          "endDate": "2026-01-06T19:19:41.861Z",
           "isActive": true
         },
         {
@@ -36,7 +46,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP0114-PPSA08427_00-KF3GAME000000001",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T18:30:45.253Z",
+          "endDate": "2026-01-06T19:19:42.855Z",
           "isActive": true
         },
         {
@@ -44,15 +54,15 @@
           "url": "https://store.playstation.com/uk-ua/product/EP4467-PPSA05004_00-3353269409144813",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T18:30:46.383Z",
+          "endDate": "2026-01-06T19:19:43.814Z",
           "isActive": true
         },
         {
           "title": "Synduality Echo of Ada | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001005",
+          "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001004",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T18:30:47.259Z",
+          "endDate": "2026-01-06T19:19:44.872Z",
           "isActive": true
         },
         {
@@ -60,7 +70,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP2333-PPSA09865_00-NEONWHITESIEE000",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T18:30:48.311Z",
+          "endDate": "2026-01-06T19:19:45.996Z",
           "isActive": true
         }
       ],
@@ -73,80 +83,80 @@
     "catalog": {
       "games": [
         {
-          "title": "Red Dead Redemption | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP1004-CUSA08519_00-REDEMPTIONFULL02",
+          "title": "Assassin’s Creed Mirage | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP0001-PPSA07231_00-ULCITEM000000003",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "Grand Theft Auto V* | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP1004-CUSA00411_00-GTAVDIGITALDOWNL",
+          "title": "Wo Long: Fallen Dynasty | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP4108-PPSA08773_00-WOLONGCE00000000",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "Pacific Drive | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP6847-PPSA17476_00-00000000000PS5EU",
+          "title": "Skate Story | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/UP3643-PPSA28801_00-0903988917779220",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "Still Wakes the Deep | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP7072-PPSA07905_00-STILLWAKES00DEEP",
+          "title": "Granblue Fantasy: Relink | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP4492-CUSA17547_00-GBVSCGH000000001",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "Insurgency: Sandstorm | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP4133-PPSA09741_00-INSURGENCYSANDST",
+          "title": "Planet Coaster 2 | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP2377-PPSA19633_00-COASTSORCERYPACK",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "Thank Goodness You’re Here! | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP3825-PPSA15434_00-0201844545004247",
+          "title": "Cat Quest III | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP7579-PPSA15064_00-CQ300000000PS5EU",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "The Talos Principle 2 | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP3643-PPSA05888_00-1760628099831063",
+          "title": "Lego Horizon Adventures | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "Monster Jam Showdown | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP4356-PPSA16159_00-MONSTERJAMGAME00",
+          "title": "Paw Patrol: Grand Prix | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA05521_00-PAWRACER00000004",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "MotoGP 25 | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP4356-PPSA25319_00-MOTOGP25FULLGAME",
+          "title": "Paw Patrol World | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA09190_00-7409034077921786",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
           "isActive": true
         },
         {
-          "title": "Tomb Raider: Anniversary | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/UP8489-PPSA27718_00-0618689374962365",
+          "title": "Soulcalibur III | PS5, PS4",
+          "url": "https://store.playstation.com/uk-ua/product/EP0700-CUSA09884_00-SC6DLC01CHARA001",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
@@ -154,11 +164,11 @@
         }
       ],
       "article": {
-        "title": "PlayStation Plus Game Catalog for November: Grand Theft Auto V, Red Dead Redemption, Pacific Drive, Still Wakes the Deep and more",
-        "url": "https://blog.playstation.com/2025/11/12/playstation-plus-game-catalog-for-november-grand-theft-auto-v-red-dead-redemption-pacific-drive-still-wakes-the-deep-and-more/",
-        "date": "2025-11-12T16:30:08.000Z"
+        "title": "PlayStation Plus Game Catalog for December: Assassin’s Creed Mirage, Wo Long: Fallen Dynasty, Skate Story and more",
+        "url": "https://blog.playstation.com/2025/12/10/playstation-plus-game-catalog-for-december-assassins-creed-mirage-wo-long-fallen-dynasty-skate-story-and-more/",
+        "date": "2025-12-10T16:31:02.000Z"
       }
     }
   },
-  "lastUpdate": "2025-12-06T18:30:52.288Z"
+  "lastUpdate": "2025-12-12T19:19:50.285Z"
 }

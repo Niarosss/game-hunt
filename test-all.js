@@ -119,11 +119,9 @@ async function testAllPlatforms() {
     if (newSteam.length > 0) {
       newSteam.slice(0, 3).forEach((g, i) => {
         console.log(`  ${i + 1}. ${g.title}`);
-        console.log(
-          `     💵 ${
-            g.originalPrice ? `${g.originalPrice} → БЕЗКОШТОВНО` : "БЕЗКОШТОВНО"
-          }`
-        );
+        if (g.originalPrice && g.originalPrice !== "0") {
+          console.log(`     💵 <s>${g.originalPrice}</s>`);
+        }
         console.log(`     🔗 ${g.url}`);
       });
 
