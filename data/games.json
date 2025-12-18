@@ -1,32 +1,41 @@
 {
   "epic": [
     {
-      "title": "Hogwarts Legacy",
-      "url": "https://store.epicgames.com/uk/p/hogwarts-legacy",
+      "title": "Jotunnslayer: Hordes of Hel",
+      "url": "https://store.epicgames.com/uk/p/jotunnslayer-hordes-of-hel-3579b3",
       "originalPrice": "0",
-      "endDate": "2025-12-18T16:00:00.000Z",
+      "endDate": "2025-12-19T16:00:00.000Z",
       "platform": "Epic Games",
-      "id": "e4f007a25ee8426e97c16e994f6127e9",
+      "id": "fb619f823a844e69a2d18f032325da96",
       "isActive": true
     }
   ],
   "steam": [
     {
-      "title": "Black Desert",
-      "url": "https://store.steampowered.com/app/582660",
-      "originalPrice": "149₴",
+      "title": "100% Orange Juice",
+      "url": "https://store.steampowered.com/app/282800",
+      "originalPrice": "163₴",
       "endDate": null,
       "platform": "Steam",
-      "id": "582660",
+      "id": "282800",
       "isActive": true
     },
     {
-      "title": "Just Ignore Them",
-      "url": "https://store.steampowered.com/app/561770",
-      "originalPrice": "99₴",
+      "title": "Toy Tinker Simulator",
+      "url": "https://store.steampowered.com/app/1510580",
+      "originalPrice": "285₴",
       "endDate": null,
       "platform": "Steam",
-      "id": "561770",
+      "id": "1510580",
+      "isActive": true
+    },
+    {
+      "title": "Rat Quest",
+      "url": "https://store.steampowered.com/app/2952470",
+      "originalPrice": "124₴",
+      "endDate": null,
+      "platform": "Steam",
+      "id": "2952470",
       "isActive": true
     }
   ],
@@ -38,7 +47,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:19:41.861Z",
+          "endDate": "2026-01-06T19:05:57.085Z",
           "isActive": true
         },
         {
@@ -46,7 +55,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP0114-PPSA08427_00-KF3GAME000000001",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:19:42.855Z",
+          "endDate": "2026-01-06T19:05:58.069Z",
           "isActive": true
         },
         {
@@ -54,15 +63,15 @@
           "url": "https://store.playstation.com/uk-ua/product/EP4467-PPSA05004_00-3353269409144813",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:19:43.814Z",
+          "endDate": "2026-01-06T19:05:59.143Z",
           "isActive": true
         },
         {
           "title": "Synduality Echo of Ada | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001004",
+          "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001005",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:19:44.872Z",
+          "endDate": "2026-01-06T19:06:00.113Z",
           "isActive": true
         },
         {
@@ -70,7 +79,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP2333-PPSA09865_00-NEONWHITESIEE000",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:19:45.996Z",
+          "endDate": "2026-01-06T19:06:01.051Z",
           "isActive": true
         }
       ],
@@ -116,7 +125,7 @@
         },
         {
           "title": "Planet Coaster 2 | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP2377-PPSA19633_00-COASTSORCERYPACK",
+          "url": "https://store.playstation.com/uk-ua/product/EP2377-PPSA19633_00-PLANETCOASTER200",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
@@ -156,7 +165,7 @@
         },
         {
           "title": "Soulcalibur III | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP0700-CUSA09884_00-SC6DLC01CHARA001",
+          "url": "https://store.playstation.com/uk-ua/product/UP0700-PPSA31911_00-SLUS212160000000",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
@@ -170,5 +179,5 @@
       }
     }
   },
-  "lastUpdate": "2025-12-12T19:19:50.285Z"
+  "lastUpdate": "2025-12-18T19:06:05.220Z"
 }
