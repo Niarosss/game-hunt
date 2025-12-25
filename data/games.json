@@ -1,41 +1,32 @@
 {
   "epic": [
     {
-      "title": "Jotunnslayer: Hordes of Hel",
-      "url": "https://store.epicgames.com/uk/p/jotunnslayer-hordes-of-hel-3579b3",
+      "title": "Disco Elysium - The Final Cut",
+      "url": "https://store.epicgames.com/uk/p/disco-elysium",
       "originalPrice": "0",
-      "endDate": "2025-12-19T16:00:00.000Z",
+      "endDate": "2025-12-26T16:00:00.000Z",
       "platform": "Epic Games",
-      "id": "fb619f823a844e69a2d18f032325da96",
+      "id": "0afb2607f1ac42e1b2c8f01791a505d3",
       "isActive": true
     }
   ],
   "steam": [
     {
-      "title": "100% Orange Juice",
-      "url": "https://store.steampowered.com/app/282800",
-      "originalPrice": "163₴",
+      "title": "Undercroft warriors",
+      "url": "https://store.steampowered.com/app/2547140",
+      "originalPrice": "74₴",
       "endDate": null,
       "platform": "Steam",
-      "id": "282800",
+      "id": "2547140",
       "isActive": true
     },
     {
-      "title": "Toy Tinker Simulator",
-      "url": "https://store.steampowered.com/app/1510580",
-      "originalPrice": "285₴",
+      "title": "Caveman World: Mountains of Unga Boonga",
+      "url": "https://store.steampowered.com/app/462960",
+      "originalPrice": "50₴",
       "endDate": null,
       "platform": "Steam",
-      "id": "1510580",
-      "isActive": true
-    },
-    {
-      "title": "Rat Quest",
-      "url": "https://store.steampowered.com/app/2952470",
-      "originalPrice": "124₴",
-      "endDate": null,
-      "platform": "Steam",
-      "id": "2952470",
+      "id": "462960",
       "isActive": true
     }
   ],
@@ -47,7 +38,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:05:57.085Z",
+          "endDate": "2026-01-05T22:32:33.159Z",
           "isActive": true
         },
         {
@@ -55,7 +46,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP0114-PPSA08427_00-KF3GAME000000001",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:05:58.069Z",
+          "endDate": "2026-01-05T22:32:34.103Z",
           "isActive": true
         },
         {
@@ -63,7 +54,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP4467-PPSA05004_00-3353269409144813",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:05:59.143Z",
+          "endDate": "2026-01-05T22:32:35.113Z",
           "isActive": true
         },
         {
@@ -71,7 +62,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001005",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:06:00.113Z",
+          "endDate": "2026-01-05T22:32:36.078Z",
           "isActive": true
         },
         {
@@ -79,7 +70,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP2333-PPSA09865_00-NEONWHITESIEE000",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-06T19:06:01.051Z",
+          "endDate": "2026-01-05T22:32:37.070Z",
           "isActive": true
         }
       ],
@@ -149,7 +140,7 @@
         },
         {
           "title": "Paw Patrol: Grand Prix | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA05521_00-PAWRACER00000004",
+          "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA15420_00-0358604349384690",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
@@ -179,5 +170,5 @@
       }
     }
   },
-  "lastUpdate": "2025-12-18T19:06:05.220Z"
+  "lastUpdate": "2025-12-25T22:32:43.120Z"
 }

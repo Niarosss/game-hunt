@@ -1,6 +1,6 @@
 {
   "name": "game-hunt",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "Telegram bot for game giveaways monitoring",
   "type": "module",
   "scripts": {
@@ -8,12 +8,11 @@
     "test": "node test-all.js"
   },
   "dependencies": {
-    "@upstash/redis": "^1.35.5",
+    "@upstash/redis": "^1.36.0",
     "axios": "^1.13.2",
-    "dotenv": "^17.2.3",
-    "node-cron": "^3.0.3"
+    "dotenv": "^17.2.3"
   },
   "engines": {
-    "node": "20"
+    "node": "24"
   }
 }
