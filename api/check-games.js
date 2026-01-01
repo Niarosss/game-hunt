@@ -116,11 +116,13 @@ export default async function handler(req, res) {
         source: "psPlusMonthly",
         games: changes.newPSPlus?.monthly?.games ?? [],
         article: changes.newPSPlus?.monthly?.article,
+        imageUrl: changes.newPSPlus?.monthly?.article?.imageUrl,
       },
       settings.modules.psPlus && {
         source: "psPlusCatalog",
         games: changes.newPSPlus?.catalog?.games ?? [],
         article: changes.newPSPlus?.catalog?.article,
+        imageUrl: changes.newPSPlus?.catalog?.article?.imageUrl,
       },
     ].filter(Boolean);
 

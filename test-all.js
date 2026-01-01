@@ -140,7 +140,9 @@ async function testAllPlatforms() {
     console.log(`✅ Місячні: ${ps.monthly.games.length}`);
     console.log(`✅ Каталог: ${ps.catalog.games.length}`);
     console.log(`📰 Місячна стаття: ${ps.monthly.article?.title || "немає"}`);
+    console.log(`🖼️ Зображення: ${ps.monthly.article?.imageUrl || "немає"}`);
     console.log(`📰 Каталог стаття: ${ps.catalog.article?.title || "немає"}`);
+    console.log(`🖼️ Зображення: ${ps.catalog.article?.imageUrl || "немає"}`);
 
     const existingMonthly = new Set(
       safeExisting.psPlus.monthly.games.map((g) => g.title)

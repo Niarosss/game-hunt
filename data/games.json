@@ -1,83 +1,58 @@
 {
   "epic": [
     {
-      "title": "Disco Elysium - The Final Cut",
-      "url": "https://store.epicgames.com/uk/p/disco-elysium",
+      "title": "Wildgate",
+      "url": "https://store.epicgames.com/uk/p/wildgate-standard-edition-b886b5",
       "originalPrice": "0",
-      "endDate": "2025-12-26T16:00:00.000Z",
+      "endDate": "2026-01-08T16:00:00.000Z",
       "platform": "Epic Games",
-      "id": "0afb2607f1ac42e1b2c8f01791a505d3",
-      "isActive": true
-    }
-  ],
-  "steam": [
-    {
-      "title": "Undercroft warriors",
-      "url": "https://store.steampowered.com/app/2547140",
-      "originalPrice": "74₴",
-      "endDate": null,
-      "platform": "Steam",
-      "id": "2547140",
+      "id": "acd0b5048a0d43ec80909788a388964a",
       "isActive": true
     },
     {
-      "title": "Caveman World: Mountains of Unga Boonga",
-      "url": "https://store.steampowered.com/app/462960",
-      "originalPrice": "50₴",
-      "endDate": null,
-      "platform": "Steam",
-      "id": "462960",
+      "title": "Total War: THREE KINGDOMS",
+      "url": "https://store.epicgames.com/uk/p/total-war-three-kingdoms-d3bb7a",
+      "originalPrice": "0",
+      "endDate": "2026-01-08T16:00:00.000Z",
+      "platform": "Epic Games",
+      "id": "77f90158ddc1488baeb4155bd934fbbd",
       "isActive": true
     }
   ],
+  "steam": [],
   "psPlus": {
     "monthly": {
       "games": [
         {
-          "title": "LEGO Horizon Adventures | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
+          "title": "Need For Speed Unbound | PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP0006-PPSA01717_00-NEEDFORSPEED2022",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-05T22:32:33.159Z",
+          "endDate": "2026-02-03T19:30:18.074Z",
           "isActive": true
         },
         {
-          "title": "Killing Floor 3 | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP0114-PPSA08427_00-KF3GAME000000001",
+          "title": "Disney Epic Mickey: Rebrushed | PS4, PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP4389-PPSA15657_00-EPICMICKEYREMAKE",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-05T22:32:34.103Z",
+          "endDate": "2026-02-03T19:30:19.079Z",
           "isActive": true
         },
         {
-          "title": "The Outlast Trials | PS4, PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP4467-PPSA05004_00-3353269409144813",
+          "title": "Core Keeper | PS4, PS5",
+          "url": "https://store.playstation.com/uk-ua/product/EP2520-CUSA45871_00-0208640006777278",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-01-05T22:32:35.113Z",
-          "isActive": true
-        },
-        {
-          "title": "Synduality Echo of Ada | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP0700-PPSA07140_00-SYNEACOIN0001005",
-          "platform": "PS Plus",
-          "type": "monthly",
-          "endDate": "2026-01-05T22:32:36.078Z",
-          "isActive": true
-        },
-        {
-          "title": "Neon White | PS4, PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP2333-PPSA09865_00-NEONWHITESIEE000",
-          "platform": "PS Plus",
-          "type": "monthly",
-          "endDate": "2026-01-05T22:32:37.070Z",
+          "endDate": "2026-02-03T19:30:20.078Z",
           "isActive": true
         }
       ],
       "article": {
-        "title": "PlayStation Plus Monthly Games for December: LEGO Horizon Adventures, Killing Floor 3, The Outlast Trials, more",
-        "url": "https://blog.playstation.com/2025/11/26/playstation-plus-monthly-games-for-december-lego-horizon-adventures-killing-floor-3-the-outlast-trials-more/",
-        "date": "2025-11-26T16:30:11.000Z"
+        "title": "PlayStation Plus Monthly Games for January: Need for Speed Unbound, Disney Epic Mickey: Rebrushed, Core Keeper",
+        "url": "https://blog.playstation.com/2025/12/31/playstation-plus-monthly-games-for-january-need-for-speed-unbound-disney-epic-mickey-rebrushed-core-keeper/",
+        "date": "2025-12-31T16:30:00.000Z",
+        "imageUrl": "https://blog.playstation.com/tachyon/2025/12/cdf3403fe9c340dcbdf4ef6775745e980af1f1d1.jpg"
       }
     },
     "catalog": {
@@ -140,7 +115,7 @@
         },
         {
           "title": "Paw Patrol: Grand Prix | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA15420_00-0358604349384690",
+          "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA05521_00-PAWRACER00000004",
           "platform": "PS Plus",
           "type": "catalog",
           "endDate": null,
@@ -166,9 +141,10 @@
       "article": {
         "title": "PlayStation Plus Game Catalog for December: Assassin’s Creed Mirage, Wo Long: Fallen Dynasty, Skate Story and more",
         "url": "https://blog.playstation.com/2025/12/10/playstation-plus-game-catalog-for-december-assassins-creed-mirage-wo-long-fallen-dynasty-skate-story-and-more/",
-        "date": "2025-12-10T16:31:02.000Z"
+        "date": "2025-12-10T16:31:02.000Z",
+        "imageUrl": "https://blog.playstation.com/tachyon/2025/12/706ad0cb5d3ca1c5001baf9a46bb7862d51c167e.jpg"
       }
     }
   },
-  "lastUpdate": "2025-12-25T22:32:43.120Z"
+  "lastUpdate": "2026-01-01T19:30:26.195Z"
 }
