@@ -93,6 +93,7 @@ async function testAllPlatforms() {
     if (newEpic.length > 0) {
       newEpic.forEach((g, i) => {
         console.log(`  ${i + 1}. ${g.title}`);
+        console.log(`     🖼️ ${g.imageUrl || "немає"}`);
         console.log(
           `     💵 ${
             g.originalPrice ? `${g.originalPrice} → БЕЗКОШТОВНО` : "БЕЗКОШТОВНО"

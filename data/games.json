@@ -3,6 +3,7 @@
     {
       "title": "Wildgate",
       "url": "https://store.epicgames.com/uk/p/wildgate-standard-edition-b886b5",
+      "imageUrl": "https://cdn1.epicgames.com/offer/d5241c76f178492ea1540fce45616757/Jan1-7_Game16_giveaway_2560x1440_2560x1440-e996755894df43a4b28c831e7a0290d2",
       "originalPrice": "0",
       "endDate": "2026-01-08T16:00:00.000Z",
       "platform": "Epic Games",
@@ -12,6 +13,7 @@
     {
       "title": "Total War: THREE KINGDOMS",
       "url": "https://store.epicgames.com/uk/p/total-war-three-kingdoms-d3bb7a",
+      "imageUrl": "https://cdn1.epicgames.com/offer/d5241c76f178492ea1540fce45616757/Jan1-7_Game17_giveaway_2560x14401_2560x1440-ac71243943c54e85955897af724527f2",
       "originalPrice": "0",
       "endDate": "2026-01-08T16:00:00.000Z",
       "platform": "Epic Games",
@@ -28,7 +30,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP0006-PPSA01717_00-NEEDFORSPEED2022",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-02-03T19:30:18.074Z",
+          "endDate": "2026-02-03T21:00:04.989Z",
           "isActive": true
         },
         {
@@ -36,7 +38,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP4389-PPSA15657_00-EPICMICKEYREMAKE",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-02-03T19:30:19.079Z",
+          "endDate": "2026-02-03T21:00:06.219Z",
           "isActive": true
         },
         {
@@ -44,7 +46,7 @@
           "url": "https://store.playstation.com/uk-ua/product/EP2520-CUSA45871_00-0208640006777278",
           "platform": "PS Plus",
           "type": "monthly",
-          "endDate": "2026-02-03T19:30:20.078Z",
+          "endDate": "2026-02-03T21:00:07.049Z",
           "isActive": true
         }
       ],
@@ -146,5 +148,5 @@
       }
     }
   },
-  "lastUpdate": "2026-01-01T19:30:26.195Z"
+  "lastUpdate": "2026-01-01T21:00:11.051Z"
 }
