@@ -6,9 +6,7 @@
       "imageUrl": "https://cdn1.epicgames.com/offer/d5241c76f178492ea1540fce45616757/Jan1-7_Game16_giveaway_2560x1440_2560x1440-e996755894df43a4b28c831e7a0290d2",
       "originalPrice": "0",
       "endDate": "2026-01-08T16:00:00.000Z",
-      "platform": "Epic Games",
-      "id": "acd0b5048a0d43ec80909788a388964a",
-      "isActive": true
+      "id": "acd0b5048a0d43ec80909788a388964a"
     },
     {
       "title": "Total War: THREE KINGDOMS",
@@ -16,9 +14,7 @@
       "imageUrl": "https://cdn1.epicgames.com/offer/d5241c76f178492ea1540fce45616757/Jan1-7_Game17_giveaway_2560x14401_2560x1440-ac71243943c54e85955897af724527f2",
       "originalPrice": "0",
       "endDate": "2026-01-08T16:00:00.000Z",
-      "platform": "Epic Games",
-      "id": "77f90158ddc1488baeb4155bd934fbbd",
-      "isActive": true
+      "id": "77f90158ddc1488baeb4155bd934fbbd"
     }
   ],
   "steam": [],
@@ -27,27 +23,18 @@
       "games": [
         {
           "title": "Need For Speed Unbound | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP0006-PPSA01717_00-NEEDFORSPEED2022",
-          "platform": "PS Plus",
-          "type": "monthly",
-          "endDate": "2026-02-03T21:00:04.989Z",
-          "isActive": true
+          "url": "https://store.playstation.com/uk-ua/product/EP0006-PPSA01717_00-CATCH0UP0PACK004",
+          "endDate": "2026-02-03T21:13:03.615Z"
         },
         {
           "title": "Disney Epic Mickey: Rebrushed | PS4, PS5",
           "url": "https://store.playstation.com/uk-ua/product/EP4389-PPSA15657_00-EPICMICKEYREMAKE",
-          "platform": "PS Plus",
-          "type": "monthly",
-          "endDate": "2026-02-03T21:00:06.219Z",
-          "isActive": true
+          "endDate": "2026-02-03T21:13:04.399Z"
         },
         {
           "title": "Core Keeper | PS4, PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP2520-CUSA45871_00-0208640006777278",
-          "platform": "PS Plus",
-          "type": "monthly",
-          "endDate": "2026-02-03T21:00:07.049Z",
-          "isActive": true
+          "url": "https://store.playstation.com/uk-ua/product/EP2520-PPSA19417_00-0407635045707470",
+          "endDate": "2026-02-03T21:13:05.525Z"
         }
       ],
       "article": {
@@ -62,82 +49,52 @@
         {
           "title": "Assassin’s Creed Mirage | PS5, PS4",
           "url": "https://store.playstation.com/uk-ua/product/EP0001-PPSA07231_00-ULCITEM000000003",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         },
         {
           "title": "Wo Long: Fallen Dynasty | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP4108-PPSA08773_00-WOLONGCE00000000",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "url": "https://store.playstation.com/uk-ua/product/EP4108-PPSA08773_00-DLC1000000000000",
+          "endDate": null
         },
         {
           "title": "Skate Story | PS5",
           "url": "https://store.playstation.com/uk-ua/product/UP3643-PPSA28801_00-0903988917779220",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         },
         {
           "title": "Granblue Fantasy: Relink | PS5, PS4",
           "url": "https://store.playstation.com/uk-ua/product/EP4492-CUSA17547_00-GBVSCGH000000001",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         },
         {
           "title": "Planet Coaster 2 | PS5",
           "url": "https://store.playstation.com/uk-ua/product/EP2377-PPSA19633_00-PLANETCOASTER200",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         },
         {
           "title": "Cat Quest III | PS5, PS4",
           "url": "https://store.playstation.com/uk-ua/product/EP7579-PPSA15064_00-CQ300000000PS5EU",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         },
         {
           "title": "Lego Horizon Adventures | PS5",
           "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         },
         {
           "title": "Paw Patrol: Grand Prix | PS5, PS4",
           "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA05521_00-PAWRACER00000004",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         },
         {
           "title": "Paw Patrol World | PS5, PS4",
           "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA09190_00-7409034077921786",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         },
         {
           "title": "Soulcalibur III | PS5, PS4",
           "url": "https://store.playstation.com/uk-ua/product/UP0700-PPSA31911_00-SLUS212160000000",
-          "platform": "PS Plus",
-          "type": "catalog",
-          "endDate": null,
-          "isActive": true
+          "endDate": null
         }
       ],
       "article": {
@@ -148,5 +105,5 @@
       }
     }
   },
-  "lastUpdate": "2026-01-01T21:00:11.051Z"
+  "lastUpdate": "2026-01-01T21:13:15.570Z"
 }

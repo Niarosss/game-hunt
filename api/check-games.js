@@ -106,7 +106,7 @@ export default async function handler(req, res) {
     const sendPlan = [
       settings.modules.epic && {
         source: "epic",
-        games: changes.newEpic?.filter((g) => g.isActive) ?? [],
+        games: changes.newEpic ?? [],
       },
       settings.modules.steam && {
         source: "steam",
