@@ -48,7 +48,6 @@ async function setupCommands() {
   }
 }
 
-// Запускаємо функцію
 setupCommands().catch((error) => {
   console.error("💥 Помилка під час налаштування команд:", error);
   process.exit(1);

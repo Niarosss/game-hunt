@@ -8,6 +8,7 @@ Serverless bot that automatically monitors free game giveaways on popular platfo
 
 - **Multi-Platform Monitoring**: Tracks free games on Epic Games, Steam, and PlayStation Plus (both Monthly and Catalog games).
 - **Telegram Notifications**: Sends clean, formatted messages to a specified Telegram channel for new game announcements.
+- **Image Previews**: Automatically includes an image for each game in the notification for better visibility.
 - **Admin Commands**: Allows the administrator to control the bot with Telegram commands:
   - `/check`: Instantly triggers a check for new free game giveaways.
   - `/stats`: Displays detailed statistics about the number of games stored in the database.
@@ -136,7 +137,7 @@ game-hunt/
 │   ├── 📄 steam.js           # Logic for fetching Steam data
 │   ├── 📄 ps-plus.js         # Logic for fetching PlayStation Plus data
 │   ├── 📄 storage.js        # Handles reading/writing to KV or local JSON
-│   ├── 📄 kv.js              # Upstash Redis client configuration
+│   ├── 📄 redis.js              # Upstash Redis client configuration
 │   └── 📄 telegram.js       # Handles sending messages to Telegram
 ├── 📁 scripts/                # Scripts for bot setup
 │   └── 📄 setup-commands.js  # Script for registering bot commands with Telegram
