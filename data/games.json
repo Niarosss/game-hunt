@@ -1,109 +1,15 @@
 {
-  "epic": [
-    {
-      "title": "Wildgate",
-      "url": "https://store.epicgames.com/uk/p/wildgate-standard-edition-b886b5",
-      "imageUrl": "https://cdn1.epicgames.com/offer/d5241c76f178492ea1540fce45616757/Jan1-7_Game16_giveaway_2560x1440_2560x1440-e996755894df43a4b28c831e7a0290d2",
-      "originalPrice": "0",
-      "endDate": "2026-01-08T16:00:00.000Z",
-      "id": "acd0b5048a0d43ec80909788a388964a"
-    },
-    {
-      "title": "Total War: THREE KINGDOMS",
-      "url": "https://store.epicgames.com/uk/p/total-war-three-kingdoms-d3bb7a",
-      "imageUrl": "https://cdn1.epicgames.com/offer/d5241c76f178492ea1540fce45616757/Jan1-7_Game17_giveaway_2560x14401_2560x1440-ac71243943c54e85955897af724527f2",
-      "originalPrice": "0",
-      "endDate": "2026-01-08T16:00:00.000Z",
-      "id": "77f90158ddc1488baeb4155bd934fbbd"
-    }
-  ],
+  "epic": [],
   "steam": [],
   "psPlus": {
     "monthly": {
-      "games": [
-        {
-          "title": "Need For Speed Unbound | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP0006-PPSA01717_00-CATCH0UP0PACK004",
-          "endDate": "2026-02-03T21:13:03.615Z"
-        },
-        {
-          "title": "Disney Epic Mickey: Rebrushed | PS4, PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP4389-PPSA15657_00-EPICMICKEYREMAKE",
-          "endDate": "2026-02-03T21:13:04.399Z"
-        },
-        {
-          "title": "Core Keeper | PS4, PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP2520-PPSA19417_00-0407635045707470",
-          "endDate": "2026-02-03T21:13:05.525Z"
-        }
-      ],
-      "article": {
-        "title": "PlayStation Plus Monthly Games for January: Need for Speed Unbound, Disney Epic Mickey: Rebrushed, Core Keeper",
-        "url": "https://blog.playstation.com/2025/12/31/playstation-plus-monthly-games-for-january-need-for-speed-unbound-disney-epic-mickey-rebrushed-core-keeper/",
-        "date": "2025-12-31T16:30:00.000Z",
-        "imageUrl": "https://blog.playstation.com/tachyon/2025/12/cdf3403fe9c340dcbdf4ef6775745e980af1f1d1.jpg"
-      }
+      "games": [],
+      "article": {}
     },
     "catalog": {
-      "games": [
-        {
-          "title": "Assassin’s Creed Mirage | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP0001-PPSA07231_00-ULCITEM000000003",
-          "endDate": null
-        },
-        {
-          "title": "Wo Long: Fallen Dynasty | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP4108-PPSA08773_00-DLC1000000000000",
-          "endDate": null
-        },
-        {
-          "title": "Skate Story | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/UP3643-PPSA28801_00-0903988917779220",
-          "endDate": null
-        },
-        {
-          "title": "Granblue Fantasy: Relink | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP4492-CUSA17547_00-GBVSCGH000000001",
-          "endDate": null
-        },
-        {
-          "title": "Planet Coaster 2 | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP2377-PPSA19633_00-PLANETCOASTER200",
-          "endDate": null
-        },
-        {
-          "title": "Cat Quest III | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP7579-PPSA15064_00-CQ300000000PS5EU",
-          "endDate": null
-        },
-        {
-          "title": "Lego Horizon Adventures | PS5",
-          "url": "https://store.playstation.com/uk-ua/product/EP9000-PPSA14632_00-LEGOHZNADVENTURE",
-          "endDate": null
-        },
-        {
-          "title": "Paw Patrol: Grand Prix | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA05521_00-PAWRACER00000004",
-          "endDate": null
-        },
-        {
-          "title": "Paw Patrol World | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/EP3678-PPSA09190_00-7409034077921786",
-          "endDate": null
-        },
-        {
-          "title": "Soulcalibur III | PS5, PS4",
-          "url": "https://store.playstation.com/uk-ua/product/UP0700-PPSA31911_00-SLUS212160000000",
-          "endDate": null
-        }
-      ],
-      "article": {
-        "title": "PlayStation Plus Game Catalog for December: Assassin’s Creed Mirage, Wo Long: Fallen Dynasty, Skate Story and more",
-        "url": "https://blog.playstation.com/2025/12/10/playstation-plus-game-catalog-for-december-assassins-creed-mirage-wo-long-fallen-dynasty-skate-story-and-more/",
-        "date": "2025-12-10T16:31:02.000Z",
-        "imageUrl": "https://blog.playstation.com/tachyon/2025/12/706ad0cb5d3ca1c5001baf9a46bb7862d51c167e.jpg"
-      }
+      "games": [],
+      "article": {}
     }
   },
-  "lastUpdate": "2026-01-01T21:13:15.570Z"
+  "lastUpdate": ""
 }
