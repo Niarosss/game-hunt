@@ -1,11 +1,12 @@
 {
   "name": "game-hunt",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Telegram bot for game giveaways monitoring",
   "type": "module",
   "scripts": {
     "start": "node api/check-games.js",
-    "test": "node test-all.js"
+    "check:local": "node scripts/run-local-check.js",
+    "test": "node scripts/run-full-test.js"
   },
   "dependencies": {
     "@upstash/redis": "^1.36.1",

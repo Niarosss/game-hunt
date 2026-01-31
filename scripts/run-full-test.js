@@ -1,9 +1,9 @@
 // test-all-platforms.js
-import { EpicGames } from "./lib/epic-games.js";
-import { Steam } from "./lib/steam.js";
-import { PSPlus } from "./lib/ps-plus.js";
-import { Storage } from "./lib/storage.js";
-import { TelegramBot } from "./lib/telegram.js";
+import { EpicGames } from "../lib/epic-games.js";
+import { Steam } from "../lib/steam.js";
+import { PSPlus } from "../lib/ps-plus.js";
+import { Storage } from "../lib/storage.js";
+import { TelegramBot } from "../lib/telegram.js";
 
 async function testAllPlatforms() {
   console.log("🧪 ТЕСТУВАННЯ ВСІХ ПЛАТФОРМ (з порівнянням даних)\n");
@@ -38,7 +38,7 @@ async function testAllPlatforms() {
       }, PS Plus ${
         safeExisting.psPlus.monthly.games.length +
         safeExisting.psPlus.catalog.games.length
-      }`
+      }`,
     );
 
     console.log("\n🔄 Завантажую нові дані з платформ...\n");
@@ -97,12 +97,12 @@ async function testAllPlatforms() {
         console.log(
           `     💵 ${
             g.originalPrice ? `${g.originalPrice} → БЕЗКОШТОВНО` : "БЕЗКОШТОВНО"
-          }`
+          }`,
         );
         console.log(
           `     ⏰ ${
             g.endDate ? new Date(g.endDate).toLocaleDateString("uk-UA") : "N/A"
-          }`
+          }`,
         );
       });
     }
@@ -147,17 +147,17 @@ async function testAllPlatforms() {
     console.log(`🖼️ Зображення: ${ps.catalog.article?.imageUrl || "немає"}`);
 
     const existingMonthly = new Set(
-      safeExisting.psPlus.monthly.games.map((g) => g.title)
+      safeExisting.psPlus.monthly.games.map((g) => g.title),
     );
     const newMonthly = ps.monthly.games.filter(
-      (g) => !existingMonthly.has(g.title)
+      (g) => !existingMonthly.has(g.title),
     );
 
     const existingCatalog = new Set(
-      safeExisting.psPlus.catalog.games.map((g) => g.title)
+      safeExisting.psPlus.catalog.games.map((g) => g.title),
     );
     const newCatalog = ps.catalog.games.filter(
-      (g) => !existingCatalog.has(g.title)
+      (g) => !existingCatalog.has(g.title),
     );
 
     console.log(`🆕 Місячні: ${newMonthly.length}`);
@@ -171,7 +171,7 @@ async function testAllPlatforms() {
         console.log(
           `     ⏰ ${
             g.endDate ? new Date(g.endDate).toLocaleDateString("uk-UA") : "N/A"
-          }`
+          }`,
         );
       });
     }
@@ -195,17 +195,17 @@ async function testAllPlatforms() {
     const changes = await storage.updateGames(
       data.epic,
       data.steam,
-      data.psPlus
+      data.psPlus,
     );
 
     console.log("✅ Збережено в data/games.json");
     console.log(`🆕 Epic: ${changes.newEpic.length}`);
     console.log(`🆕 Steam: ${changes.newSteam.length}`);
     console.log(
-      `🆕 PS Monthly: ${changes.newPSPlus?.monthly?.games.length || 0}`
+      `🆕 PS Monthly: ${changes.newPSPlus?.monthly?.games.length || 0}`,
     );
     console.log(
-      `🆕 PS Catalog: ${changes.newPSPlus?.catalog?.games.length || 0}`
+      `🆕 PS Catalog: ${changes.newPSPlus?.catalog?.games.length || 0}`,
     );
 
     const stats = await storage.getStats();
@@ -219,7 +219,7 @@ async function testAllPlatforms() {
         stats.lastUpdate
           ? new Date(stats.lastUpdate).toLocaleString("uk-UA")
           : "Ніколи"
-      }`
+      }`,
     );
 
     // -----------------------------------------
@@ -235,14 +235,14 @@ async function testAllPlatforms() {
     if (msgEpic.length > 0) {
       console.log("\n📨 Epic:");
       console.log(
-        telegram.formatGamesMessage({ source: "epic", games: msgEpic })
+        telegram.formatGamesMessage({ source: "epic", games: msgEpic }),
       );
     }
 
     if (msgSteam.length > 0) {
       console.log("\n📨 Steam:");
       console.log(
-        telegram.formatGamesMessage({ source: "steam", games: msgSteam })
+        telegram.formatGamesMessage({ source: "steam", games: msgSteam }),
       );
     }
 
@@ -253,7 +253,7 @@ async function testAllPlatforms() {
           source: "psPlusMonthly",
           games: msgMonthly,
           article: ps.monthly.article,
-        })
+        }),
       );
     }
 
@@ -264,7 +264,7 @@ async function testAllPlatforms() {
           source: "psPlusCatalog",
           games: msgCatalog,
           article: ps.catalog.article,
-        })
+        }),
       );
     }
 

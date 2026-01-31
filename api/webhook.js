@@ -4,7 +4,11 @@ import { Storage } from "../lib/storage.js";
 import settings from "../config/settings.js";
 
 export default async function handler(req, res) {
-  if (req.query.secret !== process.env.TELEGRAM_WEBHOOK_SECRET) {
+  const host = req.headers.host || "localhost";
+  const fullUrl = new URL(req.url, `http://${host}`);
+  const secret = fullUrl.searchParams.get("secret");
+
+  if (secret !== process.env.TELEGRAM_WEBHOOK_SECRET) {
     return res.status(401).send("Unauthorized");
   }
 
@@ -20,7 +24,7 @@ export default async function handler(req, res) {
   const bot = new TelegramBot(
     process.env.TELEGRAM_BOT_TOKEN,
     userChatId,
-    settings.telegram
+    settings.telegram,
   );
 
   const commands = {
@@ -29,12 +33,12 @@ export default async function handler(req, res) {
       try {
         await axios.get(
           `https://${process.env.VERCEL_URL}/check-games?reportChatId=${userChatId}`,
-          { timeout: 25000 }
+          { timeout: 25000 },
         );
         return "OK: Worker started";
       } catch (e) {
         await bot.sendMessage(
-          "❌ Не вдалося запустити перевірку: " + e.message
+          "❌ Не вдалося запустити перевірку: " + e.message,
         );
         return "Error: Worker failed to start";
       }
