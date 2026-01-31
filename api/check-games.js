@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { EpicGames } from "../lib/epic-games.js";
 import { Steam } from "../lib/steam.js";
 import { PSPlus } from "../lib/ps-plus.js";
@@ -13,7 +14,7 @@ export default async function handler(req, res) {
     new TelegramBot(
       process.env.TELEGRAM_BOT_TOKEN,
       reportChatId,
-      settings.telegram
+      settings.telegram,
     );
 
   try {
@@ -27,7 +28,7 @@ export default async function handler(req, res) {
     const telegram = new TelegramBot(
       process.env.TELEGRAM_BOT_TOKEN,
       process.env.TELEGRAM_CHAT_ID,
-      settings.telegram
+      settings.telegram,
     );
 
     const taskDefinitions = [
@@ -46,7 +47,7 @@ export default async function handler(req, res) {
     ].filter(Boolean);
 
     const results = await Promise.allSettled(
-      taskDefinitions.map((t) => t.task)
+      taskDefinitions.map((t) => t.task),
     );
 
     const platformData = {};
@@ -91,12 +92,12 @@ export default async function handler(req, res) {
         console.log(
           `🆕 PS Plus Monthly: ${
             changes.newPSPlus?.monthly?.games?.length || 0
-          }`
+          }`,
         );
         console.log(
           `🆕 PS Plus Catalog: ${
             changes.newPSPlus?.catalog?.games?.length || 0
-          }`
+          }`,
         );
       }
     }
@@ -164,4 +165,37 @@ export default async function handler(req, res) {
       error: error.message,
     });
   }
+}
+
+async function runLocally() {
+  console.log("🚀 Запуск у локальному режимі...");
+
+  // Створюємо мінімальні об'єкти req та res
+  const mockReq = {
+    query: {}, // Можна додати сюди reportChatId для тестів, напр. { reportChatId: 'YOUR_ID' }
+  };
+
+  const mockRes = {
+    status: (code) => {
+      console.log(`\n✅ Завершено зі статусом: ${code}`);
+      return mockRes; // Повертаємо себе для ланцюжкових викликів .status().json()
+    },
+    json: (data) => {
+      console.log("📝 Отримана відповідь JSON:");
+      console.log(JSON.stringify(data, null, 2));
+    },
+  };
+
+  try {
+    await handler(mockReq, mockRes);
+  } catch (e) {
+    console.error("💥 Неперехоплена помилка під час локального запуску:", e);
+  }
+}
+
+// Перевіряємо, чи є цей файл головним модулем, і запускаємо локальну функцію
+// Це стандартний спосіб для ES Modules, аналог require.main === module
+import { fileURLToPath } from "url";
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  runLocally();
 }
