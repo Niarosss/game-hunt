@@ -1,3 +1,10 @@
+process.on("warning", (warning) => {
+  if (warning.name === "DeprecationWarning") {
+    console.warn("\n--- TRACE DEPRECATION WARNING ---");
+    console.warn(warning.stack);
+    console.warn("--- END TRACE ---\n");
+  }
+});
 import "dotenv/config";
 import { EpicGames } from "../lib/epic-games.js";
 import { Steam } from "../lib/steam.js";
